@@ -30,9 +30,9 @@ DROP TABLE IF EXISTS `dw_overhill`.`time_dim` ;
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`time_dim` (
   `time_id` INT NOT NULL AUTO_INCREMENT,
   `DateNum` INT NOT NULL,
-  `Date` DATETIME NOT NULL,
+  `Date` DATE NOT NULL,
   `YearMonthNum` INT NOT NULL,
-  `CalendarQuarter` VARCHAR(50) NOT NULL,
+  `Calendar_Quarter` VARCHAR(50) NOT NULL,
   `MonthNum` INT NOT NULL,
   `MonthName` VARCHAR(50) NOT NULL,
   `MonthShortName` VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`time_dim` (
   PRIMARY KEY (`time_id`),
   INDEX `idx_week` (`WeekNum` ASC) VISIBLE,
   INDEX `idx_month` (`MonthName` ASC) VISIBLE,
-  INDEX `idx_quarter` (`CalendarQuarter` ASC) VISIBLE,
+  INDEX `idx_quarter` (`Calendar_Quarter` ASC) VISIBLE,
   INDEX `idx_date` (`Date` ASC) VISIBLE,
   INDEX `idx_day` (`DayNumOfMonth` ASC) VISIBLE);
 
