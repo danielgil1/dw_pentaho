@@ -11,24 +11,151 @@ CREATE SCHEMA IF NOT EXISTS `dw_overhill` ;
 USE `dw_overhill` ;
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`country`
+-- Table `dw_overhill`.`DimCountries`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`country` ;
+DROP TABLE IF EXISTS `dw_overhill`.`DimCountries` ;
 
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`country` (
-  `country_id` INT NOT NULL AUTO_INCREMENT,
-  `country_name` INT NOT NULL,
-  PRIMARY KEY (`country_id`),
-  INDEX `idx_country_name` (`country_name` ASC) VISIBLE);
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCountries` (
+  `CountryID` INT NOT NULL AUTO_INCREMENT,
+  `CountryName` INT NOT NULL,
+  PRIMARY KEY (`CountryID`),
+  INDEX `idx_country_name` (`CountryName` ASC) VISIBLE);
 
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`time_dim`
+-- Table `dw_overhill`.`DimHistCost`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`time_dim` ;
+DROP TABLE IF EXISTS `dw_overhill`.`DimHistCost` ;
 
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`time_dim` (
-  `time_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimHistCost` (
+  `CostID` INT NOT NULL AUTO_INCREMENT,
+  `ProductID` VARCHAR(45) NOT NULL,
+  `Year` INT NOT NULL,
+  `TotalProdVolume` INT NOT NULL,
+  `AvgProdCost` DECIMAL(7,4) NOT NULL,
+  PRIMARY KEY (`CostID`),
+  INDEX `idx_year` (`Year` ASC) VISIBLE,
+  INDEX `idx_product` (`ProductID` ASC) VISIBLE);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimProducts`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimProducts` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimProducts` (
+  `ProductID` INT NOT NULL,
+  `Description` VARCHAR(100) NOT NULL,
+  `Group` VARCHAR(50) NOT NULL,
+  `Type` VARCHAR(50) NOT NULL,
+  `Brand` VARCHAR(50) NOT NULL,
+  `CostID` INT NOT NULL,
+  `SalesPrice` DECIMAL(7,2) NULL,
+  `PackageSize` INT NULL,
+  `PriceStartDate` DATE NULL DEFAULT '0001-01-01',
+  `PriceEndDate` DATE NULL DEFAULT '9999-12-31',
+  PRIMARY KEY (`ProductID`, `CostID`),
+  INDEX `fk_product_dim_hist_cost_dim_idx` (`CostID` ASC) VISIBLE,
+  INDEX `idx_group` (`Group` ASC) VISIBLE,
+  INDEX `idx_type` (`Type` ASC) VISIBLE,
+  INDEX `idx_brand` (`Brand` ASC) VISIBLE,
+  CONSTRAINT `fk_product_dim_hist_cost_dim`
+    FOREIGN KEY (`CostID`)
+    REFERENCES `dw_overhill`.`DimHistCost` (`CostID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimCities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimCities` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCities` (
+  `CityID` INT NOT NULL AUTO_INCREMENT,
+  `CountryID` INT NOT NULL,
+  `CityName` INT NOT NULL,
+  PRIMARY KEY (`CityID`),
+  INDEX `fk_country_id_idx` (`CountryID` ASC) VISIBLE,
+  INDEX `idx_city_name` (`CityName` ASC) VISIBLE,
+  CONSTRAINT `fk_city_country1`
+    FOREIGN KEY (`CountryID`)
+    REFERENCES `dw_overhill`.`DimCountries` (`CountryID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimLocations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimLocations` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimLocations` (
+  `LocationID` INT NOT NULL AUTO_INCREMENT,
+  `CityID` INT NOT NULL,
+  `LocationName` INT NOT NULL,
+  `PostCode` INT NOT NULL,
+  PRIMARY KEY (`LocationID`),
+  INDEX `fk_city_id_idx` (`CityID` ASC) VISIBLE,
+  INDEX `idx_postcode` (`PostCode` ASC) VISIBLE,
+  CONSTRAINT `fk_location_city1`
+    FOREIGN KEY (`CityID`)
+    REFERENCES `dw_overhill`.`DimCities` (`CountryID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimCustomers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimCustomers` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCustomers` (
+  `customer_id` INT NOT NULL AUTO_INCREMENT,
+  `IndustryName` VARCHAR(50) NULL,
+  `CompanyName` VARCHAR(50) NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Phone` VARCHAR(50) NOT NULL,
+  `Email` VARCHAR(50) NOT NULL,
+  `Website` VARCHAR(50) NULL DEFAULT NULL,
+  `LastAddress` VARCHAR(50) NULL,
+  `CurrentAddress` VARCHAR(50) NOT NULL,
+  `LocationID` INT NOT NULL,
+  `isActive` INT NOT NULL,
+  PRIMARY KEY (`customer_id`, `LocationID`),
+  INDEX `fk_customer_dim_location1_idx` (`LocationID` ASC) VISIBLE,
+  INDEX `idx_industry_name` (`IndustryName` ASC) VISIBLE,
+  INDEX `idx_company_name` (`CompanyName` ASC) VISIBLE,
+  INDEX `idx_name` (`Name` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_dim_location1`
+    FOREIGN KEY (`LocationID`)
+    REFERENCES `dw_overhill`.`DimLocations` (`LocationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimAgents`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimAgents` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimAgents` (
+  `AgentID` INT NOT NULL AUTO_INCREMENT,
+  `AgentName` VARCHAR(50) NOT NULL,
+  `CommissionRate` DECIMAL(2,2) NOT NULL,
+  `AgentStartDate` DATETIME NOT NULL,
+  `AgentFinishDate` DATETIME NOT NULL DEFAULT '9999-12-31',
+  INDEX `idx_agent_name` (`AgentName` ASC) VISIBLE,
+  PRIMARY KEY (`AgentID`));
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimDates`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimDates` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimDates` (
+  `TimeID` INT NOT NULL AUTO_INCREMENT,
   `DateNum` INT NOT NULL,
   `Date` DATE NOT NULL,
   `YearMonthNum` INT NOT NULL,
@@ -45,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`time_dim` (
   `Quarter` INT NOT NULL,
   `YearQuarterNum` INT NOT NULL,
   `DayNumOfQuarter` INT NOT NULL,
-  PRIMARY KEY (`time_id`),
+  PRIMARY KEY (`TimeID`),
   INDEX `idx_week` (`WeekNum` ASC) VISIBLE,
   INDEX `idx_month` (`MonthName` ASC) VISIBLE,
   INDEX `idx_quarter` (`Calendar_Quarter` ASC) VISIBLE,
@@ -54,245 +181,119 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`time_dim` (
 
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`hist_cost_dim`
+-- Table `dw_overhill`.`DimMarkets`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`hist_cost_dim` ;
+DROP TABLE IF EXISTS `dw_overhill`.`DimMarkets` ;
 
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`hist_cost_dim` (
-  `cost_id` INT NOT NULL AUTO_INCREMENT,
-  `total_prod_volume` INT NOT NULL,
-  `avg_production_cost` DECIMAL(7,2) NOT NULL,
-  `year` INT NOT NULL,
-  PRIMARY KEY (`cost_id`),
-  INDEX `idx_year` (`year` ASC) VISIBLE);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`product_dim`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`product_dim` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`product_dim` (
-  `product_id` INT NOT NULL AUTO_INCREMENT,
-  `sku` VARCHAR(50) NULL DEFAULT NULL,
-  `description` INT NOT NULL,
-  `group` INT NOT NULL,
-  `type` INT NOT NULL,
-  `brand` INT NOT NULL,
-  `cost_id` INT NOT NULL,
-  `sales_price` DECIMAL(7,2) NOT NULL,
-  `size_package` INT NOT NULL,
-  `type_package` VARCHAR(50) NOT NULL,
-  `price_start_date` BLOB NOT NULL,
-  `price_end_date` DATETIME NOT NULL DEFAULT '9999-12-31',
-  `perc_alcohol` DECIMAL(2,1) NULL DEFAULT NULL,
-  PRIMARY KEY (`product_id`),
-  INDEX `idx_sku` (`sku` ASC) VISIBLE,
-  INDEX `fk_product_dim_hist_cost_dim_idx` (`cost_id` ASC) VISIBLE,
-  INDEX `idx_group` (`group` ASC) VISIBLE,
-  INDEX `idx_type` (`type` ASC) VISIBLE,
-  INDEX `idx_brand` (`brand` ASC) VISIBLE,
-  CONSTRAINT `fk_product_dim_hist_cost_dim`
-    FOREIGN KEY (`cost_id`)
-    REFERENCES `dw_overhill`.`hist_cost_dim` (`cost_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimMarkets` (
+  `MarketID` INT NOT NULL AUTO_INCREMENT,
+  `MarketName` INT NOT NULL,
+  `OpeningDate` DATE NULL DEFAULT '0001-01-01',
+  `ClosureDate` DATE NULL DEFAULT '9999-12-31',
+  `MarketValuation` DECIMAL(7,2) NULL DEFAULT 0,
+  PRIMARY KEY (`MarketID`),
+  INDEX `idx_opening_date` (`OpeningDate` ASC) VISIBLE,
+  INDEX `idx_market_name` (`MarketName` ASC) VISIBLE);
 
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`market_dim`
+-- Table `dw_overhill`.`WeeklyGrainSalesFact`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`market_dim` ;
+DROP TABLE IF EXISTS `dw_overhill`.`WeeklyGrainSalesFact` ;
 
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`market_dim` (
-  `market_id` INT NOT NULL AUTO_INCREMENT,
-  `market_name` INT NOT NULL,
-  `opening_date` DATETIME NOT NULL,
-  `closure_date` DATETIME NOT NULL DEFAULT '9999-12-31',
-  `maraket_valuation` DECIMAL(7,2) NULL DEFAULT NULL,
-  PRIMARY KEY (`market_id`),
-  INDEX `idx_opening_date` (`opening_date` ASC) VISIBLE,
-  INDEX `idx_market_name` (`market_name` ASC) VISIBLE);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`city`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`city` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`city` (
-  `city_id` INT NOT NULL AUTO_INCREMENT,
-  `country_id` INT NOT NULL,
-  `city_name` INT NOT NULL,
-  PRIMARY KEY (`city_id`),
-  INDEX `fk_country_id_idx` (`country_id` ASC) VISIBLE,
-  INDEX `idx_city_name` (`city_name` ASC) VISIBLE,
-  CONSTRAINT `fk_city_country1`
-    FOREIGN KEY (`country_id`)
-    REFERENCES `dw_overhill`.`country` (`country_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`location`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`location` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`location` (
-  `location_id` INT NOT NULL AUTO_INCREMENT,
-  `city_id` INT NOT NULL,
-  `location_name` INT NOT NULL,
-  `postcode` INT NOT NULL,
-  PRIMARY KEY (`location_id`),
-  INDEX `fk_city_id_idx` (`city_id` ASC) VISIBLE,
-  INDEX `idx_postcode` (`postcode` ASC) VISIBLE,
-  CONSTRAINT `fk_location_city1`
-    FOREIGN KEY (`city_id`)
-    REFERENCES `dw_overhill`.`city` (`country_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`customer_dim`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`customer_dim` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`customer_dim` (
-  `customer_id` INT NOT NULL AUTO_INCREMENT,
-  `industry_name` VARCHAR(50) NULL,
-  `company_name` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(50) NOT NULL,
-  `phone` VARCHAR(50) NOT NULL,
-  `email` VARCHAR(50) NOT NULL,
-  `website` VARCHAR(50) NULL DEFAULT NULL,
-  `last_address` VARCHAR(50) NULL,
-  `current_address` VARCHAR(50) NOT NULL,
-  `location_id` INT NOT NULL,
-  `is_active` INT NOT NULL,
-  PRIMARY KEY (`customer_id`),
-  INDEX `fk_customer_dim_location1_idx` (`location_id` ASC) VISIBLE,
-  INDEX `idx_industry_name` (`industry_name` ASC) VISIBLE,
-  INDEX `idx_company_name` (`company_name` ASC) VISIBLE,
-  INDEX `idx_name` (`name` ASC) VISIBLE,
-  CONSTRAINT `fk_customer_dim_location1`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `dw_overhill`.`location` (`location_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`weekly_grain_sales_fact`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`weekly_grain_sales_fact` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`weekly_grain_sales_fact` (
-  `sales_id` INT NOT NULL AUTO_INCREMENT,
-  `product_id` INT NOT NULL,
-  `market_id` INT NOT NULL,
-  `customer_id` INT NOT NULL,
-  `time_id` INT NOT NULL,
-  `agent_id` INT NOT NULL,
-  `total_units_sold` INT NOT NULL,
-  `total_dollar_sales` DECIMAL(7,2) NOT NULL,
-  `total_cost` DECIMAL(7,2) NOT NULL,
-  `total_margin` DECIMAL(7,2) NOT NULL,
-  `commision_amount` DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (`sales_id`),
-  INDEX `FK` (`product_id` ASC, `market_id` ASC, `customer_id` ASC, `time_id` ASC, `agent_id` ASC) VISIBLE,
-  INDEX `fk_weekly_grain_sales_fact_time_dim1_idx` (`time_id` ASC) VISIBLE,
-  INDEX `fk_weekly_grain_sales_fact_market_dim1_idx` (`market_id` ASC) VISIBLE,
-  INDEX `fk_weekly_grain_sales_fact_customer_dim1_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `fk_weekly_grain_sales_fact_product_dim_idx` (`product_id` ASC) VISIBLE,
-  INDEX `fk_weekly_grain_sales_fact_agent_dim_idx` (`agent_id` ASC) VISIBLE,
-  INDEX `idx_total_margin` (`total_margin` ASC) VISIBLE,
-  CONSTRAINT `fk_weekly_grain_sales_fact_time_dim1`
-    FOREIGN KEY (`time_id`)
-    REFERENCES `dw_overhill`.`time_dim` (`time_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`WeeklyGrainSalesFact` (
+  `SalesID` INT NOT NULL AUTO_INCREMENT,
+  `ProductID` INT NOT NULL,
+  `CustomerID` INT NOT NULL,
+  `AgentID` INT NOT NULL,
+  `TimeID` INT NOT NULL,
+  `MarketID` INT NOT NULL,
+  `TotalUnitsSold` INT NOT NULL,
+  `TotalDollarSales` DECIMAL(7,2) NOT NULL,
+  `TotalCost` DECIMAL(7,2) NOT NULL,
+  `TotalMargin` DECIMAL(7,2) NOT NULL,
+  PRIMARY KEY (`SalesID`),
+  INDEX `FK` (`ProductID` ASC, `CustomerID` ASC, `AgentID` ASC) VISIBLE,
+  INDEX `fk_weekly_grain_sales_fact_customer_dim1_idx` (`CustomerID` ASC) VISIBLE,
+  INDEX `fk_weekly_grain_sales_fact_product_dim_idx` (`ProductID` ASC) VISIBLE,
+  INDEX `fk_weekly_grain_sales_fact_agent_dim_idx` (`AgentID` ASC) VISIBLE,
+  INDEX `idx_total_margin` (`TotalMargin` ASC) VISIBLE,
+  INDEX `fk_WeeklyGrainSalesFact_DimDates1_idx` (`TimeID` ASC) VISIBLE,
+  INDEX `fk_WeeklyGrainSalesFact_DimMarkets1_idx` (`MarketID` ASC) VISIBLE,
   CONSTRAINT `fk_weekly_grain_sales_fact_product_dim1`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `dw_overhill`.`product_dim` (`product_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_weekly_grain_sales_fact_market_dim1`
-    FOREIGN KEY (`market_id`)
-    REFERENCES `dw_overhill`.`market_dim` (`market_id`)
+    FOREIGN KEY (`ProductID`)
+    REFERENCES `dw_overhill`.`DimProducts` (`ProductID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_weekly_grain_sales_fact_customer_dim1`
-    FOREIGN KEY (`customer_id`)
-    REFERENCES `dw_overhill`.`customer_dim` (`customer_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`agent_dim`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`agent_dim` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`agent_dim` (
-  `agent_id` INT NOT NULL AUTO_INCREMENT,
-  `agent_name` VARCHAR(50) NOT NULL,
-  `commision_rate` DECIMAL(2,2) NOT NULL,
-  `agent_start_date` DATETIME NOT NULL,
-  `agent_finish_date` DATETIME NOT NULL DEFAULT '9999-12-31',
-  PRIMARY KEY (`agent_id`),
-  INDEX `idx_agent_name` (`agent_name` ASC) VISIBLE,
-  CONSTRAINT `fk_agent_dim_weekly_grain_sales_fact1`
-    FOREIGN KEY (`agent_id`)
-    REFERENCES `dw_overhill`.`weekly_grain_sales_fact` (`agent_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`tx_grain_sales_fact`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`tx_grain_sales_fact` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`tx_grain_sales_fact` (
-  `sales_id` INT NOT NULL AUTO_INCREMENT,
-  `product_id` INT NOT NULL,
-  `market_id` INT NOT NULL,
-  `customer_id` INT NOT NULL,
-  `time_id` INT NOT NULL,
-  `agent_id` INT NOT NULL,
-  `units_sold` INT NOT NULL,
-  `dollar_sales` DECIMAL(7,2) NOT NULL,
-  `cost` DECIMAL(7,2) NOT NULL,
-  `margin` DECIMAL(7,2) NOT NULL,
-  `commision_amount` DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (`sales_id`),
-  INDEX `FK` (`product_id` ASC, `market_id` ASC, `customer_id` ASC, `time_id` ASC, `agent_id` ASC) VISIBLE,
-  INDEX `fk_tx_grain_sales_fact_time_dim1_idx` (`time_id` ASC) VISIBLE,
-  INDEX `fk_tx_grain_sales_fact_market_dim1_idx` (`market_id` ASC) VISIBLE,
-  INDEX `fk_tx_grain_sales_fact_customer_dim1_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `fk_tx_grain_sales_fact_product_dim_idx` (`product_id` ASC) VISIBLE,
-  INDEX `fk_tx_grain_sales_fact_agent_dim_idx` (`agent_id` ASC) VISIBLE,
-  INDEX `idx_total_margin` (`margin` ASC) VISIBLE,
-  CONSTRAINT `fk_weekly_grain_sales_fact_time_dim10`
-    FOREIGN KEY (`time_id`)
-    REFERENCES `dw_overhill`.`time_dim` (`time_id`)
+    FOREIGN KEY (`CustomerID`)
+    REFERENCES `dw_overhill`.`DimCustomers` (`customer_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_WeeklyGrainSalesFact_DimAgents1`
+    FOREIGN KEY (`AgentID`)
+    REFERENCES `dw_overhill`.`DimAgents` (`AgentID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_WeeklyGrainSalesFact_DimDates1`
+    FOREIGN KEY (`TimeID`)
+    REFERENCES `dw_overhill`.`DimDates` (`TimeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_WeeklyGrainSalesFact_DimMarkets1`
+    FOREIGN KEY (`MarketID`)
+    REFERENCES `dw_overhill`.`DimMarkets` (`MarketID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`TxGrainSalesFact`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`TxGrainSalesFact` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`TxGrainSalesFact` (
+  `SalesID` INT NOT NULL AUTO_INCREMENT,
+  `ProductID` INT NOT NULL,
+  `CustomerID` INT NOT NULL,
+  `AgentID` INT NOT NULL,
+  `TimeID` INT NOT NULL,
+  `MarketID` INT NOT NULL,
+  `UnitsSold` INT NOT NULL,
+  `Cost` DECIMAL(7,2) NOT NULL,
+  `Margin` DECIMAL(7,2) NOT NULL,
+  `CommissionAmount` DECIMAL(7,2) NOT NULL,
+  PRIMARY KEY (`SalesID`),
+  INDEX `FK` (`ProductID` ASC, `CustomerID` ASC, `AgentID` ASC) VISIBLE,
+  INDEX `fk_tx_grain_sales_fact_customer_dim1_idx` (`CustomerID` ASC) VISIBLE,
+  INDEX `fk_tx_grain_sales_fact_product_dim_idx` (`ProductID` ASC) VISIBLE,
+  INDEX `fk_tx_grain_sales_fact_agent_dim_idx` (`AgentID` ASC) VISIBLE,
+  INDEX `idx_total_margin` (`Margin` ASC) VISIBLE,
+  INDEX `fk_TxGrainSalesFact_DimDates1_idx` (`TimeID` ASC) VISIBLE,
+  INDEX `fk_TxGrainSalesFact_DimMarkets1_idx` (`MarketID` ASC) VISIBLE,
   CONSTRAINT `fk_weekly_grain_sales_fact_product_dim10`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `dw_overhill`.`product_dim` (`product_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_weekly_grain_sales_fact_market_dim10`
-    FOREIGN KEY (`market_id`)
-    REFERENCES `dw_overhill`.`market_dim` (`market_id`)
+    FOREIGN KEY (`ProductID`)
+    REFERENCES `dw_overhill`.`DimProducts` (`ProductID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_weekly_grain_sales_fact_customer_dim10`
-    FOREIGN KEY (`customer_id`)
-    REFERENCES `dw_overhill`.`customer_dim` (`customer_id`)
+    FOREIGN KEY (`CustomerID`)
+    REFERENCES `dw_overhill`.`DimCustomers` (`customer_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TxGrainSalesFact_DimAgents1`
+    FOREIGN KEY (`AgentID`)
+    REFERENCES `dw_overhill`.`DimAgents` (`AgentID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TxGrainSalesFact_DimDates1`
+    FOREIGN KEY (`TimeID`)
+    REFERENCES `dw_overhill`.`DimDates` (`TimeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TxGrainSalesFact_DimMarkets1`
+    FOREIGN KEY (`MarketID`)
+    REFERENCES `dw_overhill`.`DimMarkets` (`MarketID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
