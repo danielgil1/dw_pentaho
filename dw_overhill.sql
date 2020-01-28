@@ -4,6 +4,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+
 -- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
@@ -29,13 +30,14 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimHistCost` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimHistCost` (
   `CostID` INT NOT NULL AUTO_INCREMENT,
-  `ProductID` VARCHAR(45) NOT NULL,
-  `Year` INT NOT NULL,
+  `ProdCode` INT NOT NULL,
+  `ProdYear` INT NOT NULL,
   `TotalProdVolume` INT NOT NULL,
   `AvgProdCost` DECIMAL(7,4) NOT NULL,
+  `PackageSize` INT NOT NULL,
   PRIMARY KEY (`CostID`),
-  INDEX `idx_year` (`Year` ASC) VISIBLE,
-  INDEX `idx_product` (`ProductID` ASC) VISIBLE);
+  INDEX `idx_year` (`ProdYear` ASC) VISIBLE,
+  INDEX `idx_product` (`ProdCode` ASC) VISIBLE);
 
 
 -- -----------------------------------------------------
@@ -44,22 +46,23 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimHistCost` (
 DROP TABLE IF EXISTS `dw_overhill`.`DimProducts` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimProducts` (
-  `ProductID` INT NOT NULL,
-  `Description` VARCHAR(100) NOT NULL,
-  `Group` VARCHAR(50) NOT NULL,
-  `Type` VARCHAR(50) NOT NULL,
-  `Brand` VARCHAR(50) NOT NULL,
-  `CostID` INT NOT NULL,
+  `ProductID` INT NOT NULL AUTO_INCREMENT,
+  `ProdCode` VARCHAR(45) NULL,
+  `Description` VARCHAR(100) NULL,
+  `Group` VARCHAR(50) NULL,
+  `Type` VARCHAR(50) NULL,
+  `Brand` VARCHAR(50) NULL,
+  `CostID` INT NULL,
   `SalesPrice` DECIMAL(7,2) NULL,
-  `PackageSize` INT NULL,
-  `PriceStartDate` DATE NULL DEFAULT '0001-01-01',
-  `PriceEndDate` DATE NULL DEFAULT '9999-12-31',
-  PRIMARY KEY (`ProductID`, `CostID`),
-  INDEX `fk_product_dim_hist_cost_dim_idx` (`CostID` ASC) VISIBLE,
+  `PriceVersion` INT NULL,
+  `PriceDateFrom` DATE NULL,
+  `PriceDateTo` DATE NULL,
+  PRIMARY KEY (`ProductID`),
   INDEX `idx_group` (`Group` ASC) VISIBLE,
   INDEX `idx_type` (`Type` ASC) VISIBLE,
   INDEX `idx_brand` (`Brand` ASC) VISIBLE,
-  CONSTRAINT `fk_product_dim_hist_cost_dim`
+  INDEX `fk_DimProducts_DimHistCost1_idx` (`CostID` ASC) VISIBLE,
+  CONSTRAINT `fk_DimProducts_DimHistCost1`
     FOREIGN KEY (`CostID`)
     REFERENCES `dw_overhill`.`DimHistCost` (`CostID`)
     ON DELETE NO ACTION
