@@ -11,18 +11,6 @@ CREATE SCHEMA IF NOT EXISTS `dw_overhill` ;
 USE `dw_overhill` ;
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`DimCountries`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`DimCountries` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCountries` (
-  `CountryID` INT NOT NULL AUTO_INCREMENT,
-  `CountryName` INT NOT NULL,
-  PRIMARY KEY (`CountryID`),
-  INDEX `idx_country_name` (`CountryName` ASC) VISIBLE);
-
-
--- -----------------------------------------------------
 -- Table `dw_overhill`.`DimHistCost`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `dw_overhill`.`DimHistCost` ;
@@ -75,16 +63,9 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimCities` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCities` (
   `CityID` INT NOT NULL AUTO_INCREMENT,
-  `CountryID` INT NOT NULL,
-  `CityName` INT NOT NULL,
+  `CityName` VARCHAR(50) NULL,
   PRIMARY KEY (`CityID`),
-  INDEX `fk_country_id_idx` (`CountryID` ASC) VISIBLE,
-  INDEX `idx_city_name` (`CityName` ASC) VISIBLE,
-  CONSTRAINT `fk_city_country1`
-    FOREIGN KEY (`CountryID`)
-    REFERENCES `dw_overhill`.`DimCountries` (`CountryID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  INDEX `city_name_idx` (`CityName` ASC) VISIBLE);
 
 
 -- -----------------------------------------------------
@@ -95,14 +76,14 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimLocations` ;
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimLocations` (
   `LocationID` INT NOT NULL AUTO_INCREMENT,
   `CityID` INT NOT NULL,
-  `LocationName` INT NOT NULL,
-  `PostCode` INT NOT NULL,
+  `LocationName` VARCHAR(50) NOT NULL,
+  `PostCode` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`LocationID`),
   INDEX `fk_city_id_idx` (`CityID` ASC) VISIBLE,
   INDEX `idx_postcode` (`PostCode` ASC) VISIBLE,
-  CONSTRAINT `fk_location_city1`
+  CONSTRAINT `fk_DimLocations_DimCities1`
     FOREIGN KEY (`CityID`)
-    REFERENCES `dw_overhill`.`DimCities` (`CountryID`)
+    REFERENCES `dw_overhill`.`DimCities` (`CityID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
