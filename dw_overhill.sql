@@ -4,6 +4,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+
 -- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
@@ -101,9 +102,11 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCustomers` (
   `CurrentAddress` VARCHAR(500) NULL,
   `LocationID` INT NULL,
   `LastUpdated` DATE NULL,
+  `Market` VARCHAR(50) NULL,
   PRIMARY KEY (`CustomerID`),
   INDEX `fk_customer_dim_location1_idx` (`LocationID` ASC) VISIBLE,
   INDEX `idx_name` (`Name` ASC) VISIBLE,
+  INDEX `idx_market` (`Market` ASC) VISIBLE,
   CONSTRAINT `fk_customer_dim_location1`
     FOREIGN KEY (`LocationID`)
     REFERENCES `dw_overhill`.`DimLocations` (`LocationID`)
@@ -164,13 +167,16 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimMarkets` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimMarkets` (
   `MarketID` INT NOT NULL AUTO_INCREMENT,
-  `MarketName` INT NOT NULL,
-  `OpeningDate` DATE NULL DEFAULT '0001-01-01',
-  `ClosureDate` DATE NULL DEFAULT '9999-12-31',
+  `MarketKey` VARCHAR(50) NOT NULL,
+  `MarketName` VARCHAR(200) NOT NULL,
+  `isActive` TINYINT NOT NULL,
   `MarketValuation` DECIMAL(7,2) NULL DEFAULT 0,
   PRIMARY KEY (`MarketID`),
-  INDEX `idx_opening_date` (`OpeningDate` ASC) VISIBLE,
-  INDEX `idx_market_name` (`MarketName` ASC) VISIBLE);
+  CONSTRAINT `fk_DimMarkets_DimCustomers1`
+    FOREIGN KEY (`MarketKey`)
+    REFERENCES `dw_overhill`.`DimCustomers` (`Market`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
