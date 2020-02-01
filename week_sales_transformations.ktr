@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>salestest</name>
+    <name>sales1_transformations</name>
     <description />
     <extended_description />
     <trans_version />
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -415,7 +416,7 @@
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
     <shared_objects_file />
-    <capture_step_performance>N</capture_step_performance>
+    <capture_step_performance>Y</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
     <dependencies>
@@ -497,37 +498,82 @@
   <order>
     <hop>
       <from>Microsoft Excel Input</from>
-      <to>User Defined Java Expression</to>
+      <to>Remove unwanted characters</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>User Defined Java Expression</from>
+      <from>Remove unwanted characters</from>
+      <to>Convert to date</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimCustomers Lookup</from>
+      <to>DimMarkets Lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimMarkets Lookup</from>
+      <to>DimDates Lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimDates Lookup</from>
+      <to>DimAgents Lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Convert to date</from>
+      <to>Format date to DimDates</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Format date to DimDates</from>
+      <to>DimCustomers Lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Microsoft Excel Input 2</from>
+      <to>Merge Join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimAgents Lookup</from>
+      <to>Merge Join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge Join</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Select values</from>
-      <to>Database lookup</to>
+      <to>DimProducts Lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
-      <to>Database lookup 2</to>
+      <from>DimProducts Lookup</from>
+      <to>DimHistCost Lookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 2</from>
-      <to>Database lookup 3</to>
+      <from>DimHistCost Lookup</from>
+      <to>Calculate margin</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 3</from>
-      <to>Database lookup 4</to>
+      <from>Calculate margin</from>
+      <to>Sort rows</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 4</from>
-      <to>Dummy (do nothing)</to>
+      <from>Sort rows</from>
+      <to>Group by</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Group by</from>
+      <to>Weekly Sales Fact Table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -647,13 +693,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>240</xloc>
-      <yloc>160</yloc>
+      <xloc>48</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>User Defined Java Expression</name>
+    <name>Remove unwanted characters</name>
     <type>Janino</type>
     <description />
     <distribute>Y</distribute>
@@ -679,13 +725,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>160</yloc>
+      <xloc>224</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
+    <name>Convert to date</name>
     <type>SelectValues</type>
     <description />
     <distribute>Y</distribute>
@@ -746,13 +792,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>160</yloc>
+      <xloc>416</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
+    <name>DimCustomers Lookup</name>
     <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
@@ -799,13 +845,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>160</yloc>
+      <xloc>640</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 2</name>
+    <name>DimMarkets Lookup</name>
     <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
@@ -847,12 +893,12 @@
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>272</yloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 3</name>
+    <name>DimDates Lookup</name>
     <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
@@ -873,7 +919,7 @@
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>SalesDate</name>
+        <name>Date</name>
         <field>Date</field>
         <condition>=</condition>
         <name2 />
@@ -884,6 +930,12 @@
         <default />
         <type>Integer</type>
       </value>
+      <value>
+        <name>WeekNum</name>
+        <rename>WeekNum</rename>
+        <default />
+        <type>None</type>
+      </value>
     </lookup>
     <cluster_schema />
     <remotesteps>
@@ -893,13 +945,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>288</yloc>
+      <xloc>336</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 4</name>
+    <name>DimAgents Lookup</name>
     <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
@@ -932,8 +984,8 @@
         <type>Integer</type>
       </value>
       <value>
-        <name>CommissionRate</name>
-        <rename>CommissionRate</rename>
+        <name>CommmissionRate</name>
+        <rename>CommmissionRate</rename>
         <default />
         <type>String</type>
       </value>
@@ -946,14 +998,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>352</yloc>
+      <xloc>192</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Format date to DimDates</name>
+    <type>SelectValues</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -962,6 +1014,42 @@
       <method>none</method>
       <schema_name />
     </partitioning>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <rename />
+      </field>
+      <field>
+        <name>Cust_Key</name>
+        <rename />
+      </field>
+      <field>
+        <name>Sales Agent</name>
+        <rename />
+      </field>
+      <field>
+        <name>SalesDate</name>
+        <rename />
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>SalesDate</name>
+        <rename>Date</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy/MM/dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Melbourne</date_format_timezone>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding />
+        <decimal_symbol />
+        <grouping_symbol />
+        <currency_symbol />
+        <storage_type />
+      </meta>
+    </fields>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -970,8 +1058,727 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
+      <xloc>640</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Microsoft Excel Input 2</name>
+    <type>ExcelInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield />
+    <sheetfield />
+    <sheetrownumfield />
+    <rownumfield />
+    <sheetfield />
+    <filefield />
+    <limit>0</limit>
+    <encoding />
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field />
+    <accept_stepname />
+    <file>
+      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem/SaleItem.xlsx</name>
+      <filemask />
+      <exclude_filemask />
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>LineID</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Prod_Key</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>UnitSales</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>UnitPrice</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>SaleItem</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory />
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory />
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory />
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName />
+    <pathFieldName />
+    <hiddenFieldName />
+    <lastModificationTimeFieldName />
+    <uriNameFieldName />
+    <rootUriNameFieldName />
+    <extensionFieldName />
+    <sizeFieldName />
+    <spreadsheet_type>POI</spreadsheet_type>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>48</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge Join</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Microsoft Excel Input 2</step1>
+    <step2>DimAgents Lookup</step2>
+    <keys_1>
+      <key>SaleID</key>
+    </keys_1>
+    <keys_2>
+      <key>SaleID</key>
+    </keys_2>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <rename />
+      </field>
+      <field>
+        <name>Date</name>
+        <rename />
+      </field>
+      <field>
+        <name>TimeID</name>
+        <rename />
+      </field>
+      <field>
+        <name>Cust_Key</name>
+        <rename />
+      </field>
+      <field>
+        <name>CustomerID</name>
+        <rename />
+      </field>
+      <field>
+        <name>MarketID</name>
+        <rename />
+      </field>
+      <field>
+        <name>Market</name>
+        <rename />
+      </field>
+      <field>
+        <name>Sales Agent</name>
+        <rename />
+      </field>
+      <field>
+        <name>AgentID</name>
+        <rename />
+      </field>
+      <field>
+        <name>CommissionRate</name>
+        <rename />
+      </field>
+      <field>
+        <name>LineID</name>
+        <rename />
+      </field>
+      <field>
+        <name>Prod_Key</name>
+        <rename />
+      </field>
+      <field>
+        <name>UnitSales</name>
+        <rename />
+      </field>
+      <field>
+        <name>UnitPrice</name>
+        <rename />
+      </field>
+      <field>
+        <name>WeekNum</name>
+        <rename />
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>DimProducts Lookup</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>conn_dw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema />
+      <table>DimProducts</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>Prod_Key</name>
+        <field>ProdCode</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>CostID</name>
+        <rename>CostID</rename>
+        <default />
+        <type>None</type>
+      </value>
+      <value>
+        <name>ProductID</name>
+        <rename>ProductID</rename>
+        <default />
+        <type>None</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>DimHistCost Lookup</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>conn_dw</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema />
+      <table>DimHistCost</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>CostID</name>
+        <field>CostID</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>AvgProdCost</name>
+        <rename>AvgProdCost</rename>
+        <default />
+        <type>None</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Calculate margin</name>
+    <type>Calculator</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <calculation>
+      <field_name>TotalSales</field_name>
+      <calc_type>MULTIPLY</calc_type>
+      <field_a>UnitPrice</field_a>
+      <field_b>UnitSales</field_b>
+      <field_c />
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
+    </calculation>
+    <calculation>
+      <field_name>TotalCost</field_name>
+      <calc_type>MULTIPLY</calc_type>
+      <field_a>AvgProdCost</field_a>
+      <field_b>UnitSales</field_b>
+      <field_c />
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
+    </calculation>
+    <calculation>
+      <field_name>TotalComission</field_name>
+      <calc_type>MULTIPLY</calc_type>
+      <field_a>TotalSales</field_a>
+      <field_b>CommissionRate</field_b>
+      <field_c />
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
+    </calculation>
+    <calculation>
+      <field_name>TotalGrossMargin</field_name>
+      <calc_type>SUBTRACT</calc_type>
+      <field_a>TotalSales</field_a>
+      <field_b>TotalCost</field_b>
+      <field_c />
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
+    </calculation>
+    <calculation>
+      <field_name>TotalNetMargin</field_name>
+      <calc_type>SUBTRACT</calc_type>
+      <field_a>TotalGrossMargin</field_a>
+      <field_b>TotalComission</field_b>
+      <field_c />
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
+    </calculation>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Group by</name>
+    <type>GroupBy</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore />
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname />
+    <give_back_row>N</give_back_row>
+    <group>
+      <field>
+        <name>WeekNum</name>
+      </field>
+      <field>
+        <name>TimeID</name>
+      </field>
+      <field>
+        <name>MarketID</name>
+      </field>
+      <field>
+        <name>CustomerID</name>
+      </field>
+      <field>
+        <name>AgentID</name>
+      </field>
+      <field>
+        <name>ProductID</name>
+      </field>
+      <field>
+        <name>CostID</name>
+      </field>
+    </group>
+    <fields>
+      <field>
+        <aggregate>TotalSales</aggregate>
+        <subject>TotalSales</subject>
+        <type>SUM</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>TotalCost</aggregate>
+        <subject>TotalCost</subject>
+        <type>SUM</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>TotalComission</aggregate>
+        <subject>TotalComission</subject>
+        <type>SUM</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>TotalGrossMargin</aggregate>
+        <subject>TotalGrossMargin</subject>
+        <type>SUM</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>TotalNetMargin</aggregate>
+        <subject>TotalNetMargin</subject>
+        <type>SUM</type>
+        <valuefield />
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
       <yloc>400</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory />
+    <compress>N</compress>
+    <compress_variable />
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>WeekNum</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>TimeID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>MarketID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>CustomerID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>AgentID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>ProductID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>CostID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Weekly Sales Fact Table</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>conn_dw</connection>
+    <schema />
+    <table>WeeklyGrainSalesFact</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>TimeID</column_name>
+        <stream_name>TimeID</stream_name>
+      </field>
+      <field>
+        <column_name>MarketID</column_name>
+        <stream_name>MarketID</stream_name>
+      </field>
+      <field>
+        <column_name>CustomerID</column_name>
+        <stream_name>CustomerID</stream_name>
+      </field>
+      <field>
+        <column_name>AgentID</column_name>
+        <stream_name>AgentID</stream_name>
+      </field>
+      <field>
+        <column_name>ProductID</column_name>
+        <stream_name>ProductID</stream_name>
+      </field>
+      <field>
+        <column_name>TotalSales</column_name>
+        <stream_name>TotalSales</stream_name>
+      </field>
+      <field>
+        <column_name>TotalCost</column_name>
+        <stream_name>TotalCost</stream_name>
+      </field>
+      <field>
+        <column_name>TotalCommission</column_name>
+        <stream_name>TotalComission</stream_name>
+      </field>
+      <field>
+        <column_name>TotalGrossMargin</column_name>
+        <stream_name>TotalGrossMargin</stream_name>
+      </field>
+      <field>
+        <column_name>TotalNetMargin</column_name>
+        <stream_name>TotalNetMargin</stream_name>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

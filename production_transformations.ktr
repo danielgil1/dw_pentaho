@@ -860,92 +860,6 @@
     </GUI>
   </step>
   <step>
-    <name>Update DimProducts SDC Type 2</name>
-    <type>DimensionLookup</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <schema />
-    <table>DimProducts</table>
-    <connection>dw3</connection>
-    <commit>100</commit>
-    <update>Y</update>
-    <fields>
-      <key>
-        <name>CostID</name>
-        <lookup>CostID</lookup>
-      </key>
-      <date>
-        <name />
-        <from>PriceDateFrom</from>
-        <to>PriceDateTo</to>
-      </date>
-      <field>
-        <name>Group</name>
-        <lookup>Group</lookup>
-        <update>Punch through</update>
-      </field>
-      <field>
-        <name>Brand</name>
-        <lookup>Brand</lookup>
-        <update>Punch through</update>
-      </field>
-      <field>
-        <name>Type</name>
-        <lookup>Type</lookup>
-        <update>Punch through</update>
-      </field>
-      <field>
-        <name>Price</name>
-        <lookup>SalesPrice</lookup>
-        <update>Insert</update>
-      </field>
-      <field>
-        <name>Description</name>
-        <lookup>Description</lookup>
-        <update>Punch through</update>
-      </field>
-      <field>
-        <name>ProductKey</name>
-        <lookup>ProdCode</lookup>
-        <update>Punch through</update>
-      </field>
-      <return>
-        <name>ProductID</name>
-        <rename />
-        <creation_method>autoinc</creation_method>
-        <use_autoinc>Y</use_autoinc>
-        <version>PriceVersion</version>
-      </return>
-    </fields>
-    <sequence />
-    <min_year>1900</min_year>
-    <max_year>2199</max_year>
-    <cache_size>-1</cache_size>
-    <preload_cache>N</preload_cache>
-    <use_start_date_alternative>N</use_start_date_alternative>
-    <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name />
-    <useBatch>N</useBatch>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>1104</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Extract Brand and Type</name>
     <type>RegexEval</type>
     <description />
@@ -1136,6 +1050,40 @@
     <GUI>
       <xloc>736</xloc>
       <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows with no price</name>
+    <type>FilterRows</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <send_true_to>Update DimProducts SDC Type 2</send_true_to>
+    <send_false_to />
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>Price</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue />
+      </condition>
+    </compare>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>976</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1655,27 +1603,21 @@
     <fields>
       <field>
         <name>ProductionID</name>
-        <rename />
       </field>
       <field>
         <name>ProdCode</name>
-        <rename />
       </field>
       <field>
         <name>ProdYear</name>
-        <rename />
       </field>
       <field>
         <name>Volume</name>
-        <rename />
       </field>
       <field>
         <name>Cost</name>
-        <rename />
       </field>
       <field>
         <name>PackageSize</name>
-        <rename />
       </field>
       <select_unspecified>N</select_unspecified>
       <remove>
@@ -1709,35 +1651,27 @@
     <fields>
       <field>
         <name>ProdCode</name>
-        <rename />
       </field>
       <field>
         <name>Description</name>
-        <rename />
       </field>
       <field>
         <name>Group</name>
-        <rename />
       </field>
       <field>
         <name>Brand</name>
-        <rename />
       </field>
       <field>
         <name>Type</name>
-        <rename />
       </field>
       <field>
         <name>ProdYear</name>
-        <rename />
       </field>
       <field>
         <name>CostID</name>
-        <rename />
       </field>
       <field>
         <name>PackageSize</name>
-        <rename />
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1768,35 +1702,27 @@
     <fields>
       <field>
         <name>ProductKey</name>
-        <rename />
       </field>
       <field>
         <name>Description</name>
-        <rename />
       </field>
       <field>
         <name>Group</name>
-        <rename />
       </field>
       <field>
         <name>Brand</name>
-        <rename />
       </field>
       <field>
         <name>Type</name>
-        <rename />
       </field>
       <field>
         <name>ProdYear</name>
-        <rename />
       </field>
       <field>
         <name>CostID</name>
-        <rename />
       </field>
       <field>
         <name>Price</name>
-        <rename />
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1863,55 +1789,6 @@
     </GUI>
   </step>
   <step>
-    <name>Sort rows by code and year</name>
-    <type>SortRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory />
-    <compress>N</compress>
-    <compress_variable />
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>ProdCode</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>ProdYear</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>544</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Sort rows by Description and ProdYear</name>
     <type>SortRows</type>
     <description />
@@ -1961,8 +1838,8 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows with no price</name>
-    <type>FilterRows</type>
+    <name>Sort rows by code and year</name>
+    <type>SortRows</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -1971,16 +1848,117 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <send_true_to>Update DimProducts SDC Type 2</send_true_to>
-    <send_false_to />
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>Price</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue />
-      </condition>
-    </compare>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory />
+    <compress>N</compress>
+    <compress_variable />
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ProdCode</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>ProdYear</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Update DimProducts SDC Type 2</name>
+    <type>DimensionLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <schema />
+    <table>DimProducts</table>
+    <connection>dw3</connection>
+    <commit>100</commit>
+    <update>Y</update>
+    <fields>
+      <key>
+        <name>CostID</name>
+        <lookup>CostID</lookup>
+      </key>
+      <date>
+        <name />
+        <from>PriceDateFrom</from>
+        <to>PriceDateTo</to>
+      </date>
+      <field>
+        <name>Group</name>
+        <lookup>Group</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>Brand</name>
+        <lookup>Brand</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>Type</name>
+        <lookup>Type</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>Price</name>
+        <lookup>SalesPrice</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>Description</name>
+        <lookup>Description</lookup>
+        <update>Punch through</update>
+      </field>
+      <field>
+        <name>ProductKey</name>
+        <lookup>ProdCode</lookup>
+        <update>Insert</update>
+      </field>
+      <return>
+        <name>ProductID</name>
+        <rename />
+        <creation_method>autoinc</creation_method>
+        <use_autoinc>Y</use_autoinc>
+        <version>PriceVersion</version>
+      </return>
+    </fields>
+    <sequence />
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>-1</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name />
+    <useBatch>N</useBatch>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1990,7 +1968,7 @@
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>976</yloc>
+      <yloc>1104</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
