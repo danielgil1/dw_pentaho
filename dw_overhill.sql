@@ -5,6 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema dw_overhill
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `dw_overhill` ;
@@ -244,11 +251,11 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`TxGrainSalesFact` (
   `AgentID` INT NOT NULL,
   `TimeID` INT NOT NULL,
   `MarketID` INT NOT NULL,
-  `UnitsSold` INT NOT NULL,
   `UnitsCost` DECIMAL(7,2) NOT NULL,
   `Margin` DECIMAL(7,2) NOT NULL,
   `CommissionAmount` DECIMAL(7,2) NOT NULL,
   `UnitSales` VARCHAR(45) NOT NULL,
+  `LineID` INT NOT NULL,
   PRIMARY KEY (`SalesID`),
   INDEX `FK` (`ProductID` ASC, `CustomerID` ASC, `AgentID` ASC) VISIBLE,
   INDEX `fk_tx_grain_sales_fact_product_dim_idx` (`ProductID` ASC) VISIBLE,
