@@ -7,6 +7,11 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
@@ -15,6 +20,129 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema dw_overhill
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `dw_overhill` ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`store_dimension`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`store_dimension` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`store_dimension` (
+  `store_id` INT NOT NULL,
+  `country` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `suburb` VARCHAR(45) NULL,
+  INDEX `idx_suburb` (`suburb` ASC) VISIBLE,
+  INDEX `idx_city` (`city` ASC) VISIBLE,
+  PRIMARY KEY (`store_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`equipment_dimension`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`equipment_dimension` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`equipment_dimension` (
+  `equipment_id` INT NOT NULL,
+  `type` VARCHAR(45) NULL,
+  `category` VARCHAR(45) NULL,
+  `brand` VARCHAR(45) NULL,
+  `desc` VARCHAR(45) NULL,
+  `sku` VARCHAR(45) NULL,
+  INDEX `idx_sku` (`sku` ASC) VISIBLE,
+  INDEX `idx_type` (`type` ASC) VISIBLE,
+  PRIMARY KEY (`equipment_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`customer_dimension`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`customer_dimension` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`customer_dimension` (
+  `customer_id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `addr_init_date` DATE NOT NULL,
+  `addr_finish_date` DATE NOT NULL,
+  `address` VARCHAR(45) NULL,
+  INDEX `idx_addr_date` (`addr_init_date` ASC, `addr_finish_date` ASC) VISIBLE,
+  PRIMARY KEY (`customer_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`date_dimension`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`date_dimension` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`date_dimension` (
+  `date_id` INT NOT NULL,
+  `day` VARCHAR(45) NULL,
+  `month` VARCHAR(45) NULL,
+  `year` VARCHAR(45) NULL,
+  `season` VARCHAR(45) NULL,
+  `isholiday` INT(1) NULL,
+  `quarter_no` ENUM('1', '2', '3', '4') NULL,
+  INDEX `idx_month` (`month` ASC) VISIBLE,
+  INDEX `idx_season` (`season` ASC) VISIBLE,
+  PRIMARY KEY (`date_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`sales_month_fact`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`sales_month_fact` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`sales_month_fact` (
+  `sales_id` INT NOT NULL AUTO_INCREMENT,
+  `store_id` INT NOT NULL,
+  `equipment_id` INT NOT NULL,
+  `customer_id` INT NOT NULL,
+  `date_id` INT NOT NULL,
+  `quantity` INT NULL,
+  `avg_cost` DECIMAL(7,2) NULL,
+  `avg_sales_price` DECIMAL(7,2) NULL,
+  `avg_profit` DECIMAL(7,2) NULL,
+  PRIMARY KEY (`sales_id`, `store_id`, `equipment_id`, `customer_id`, `date_id`),
+  INDEX `fk_sales_month_fact_store_dimension_idx` (`store_id` ASC) VISIBLE,
+  INDEX `fk_sales_month_fact_equipment_dimension1_idx` (`equipment_id` ASC) VISIBLE,
+  INDEX `fk_sales_month_fact_customer_dimension1_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `fk_sales_month_fact_date_dimension1_idx` (`date_id` ASC) VISIBLE,
+  CONSTRAINT `fk_sales_month_fact_store_dimension`
+    FOREIGN KEY (`store_id`)
+    REFERENCES `mydb`.`store_dimension` (`store_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sales_month_fact_equipment_dimension1`
+    FOREIGN KEY (`equipment_id`)
+    REFERENCES `mydb`.`equipment_dimension` (`equipment_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sales_month_fact_customer_dimension1`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `mydb`.`customer_dimension` (`customer_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sales_month_fact_date_dimension1`
+    FOREIGN KEY (`date_id`)
+    REFERENCES `mydb`.`date_dimension` (`date_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`table1`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`table1` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`table1` (
+)
+ENGINE = InnoDB;
+
 USE `dw_overhill` ;
 
 -- -----------------------------------------------------
@@ -127,11 +255,11 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimAgents` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimAgents` (
   `AgentID` INT NOT NULL AUTO_INCREMENT,
-  `AgentKey` VARCHAR(50) NOT NULL,
   `AgentName` VARCHAR(50) NOT NULL,
-  `CommissionRate` DECIMAL(2,2) NULL DEFAULT 0,
-  `AgentStartDate` DATE NULL,
-  `AgentFinishDate` DATE NULL,
+  `CommissionRate` DECIMAL(2,2) NOT NULL,
+  `AgentStartDate` DATETIME NOT NULL,
+  `AgentFinishDate` DATETIME NOT NULL DEFAULT '9999-12-31',
+  `version` VARCHAR(10) NULL,
   INDEX `idx_agent_name` (`AgentName` ASC) VISIBLE,
   PRIMARY KEY (`AgentID`));
 
