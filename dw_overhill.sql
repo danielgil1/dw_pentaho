@@ -4,7 +4,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-
 -- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
@@ -121,10 +120,11 @@ DROP TABLE IF EXISTS `dw_overhill`.`DimAgents` ;
 
 CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimAgents` (
   `AgentID` INT NOT NULL AUTO_INCREMENT,
+  `AgentKey` VARCHAR(50) NOT NULL,
   `AgentName` VARCHAR(50) NOT NULL,
-  `CommissionRate` DECIMAL(2,2) NOT NULL,
-  `AgentStartDate` DATETIME NOT NULL,
-  `AgentFinishDate` DATETIME NOT NULL DEFAULT '9999-12-31',
+  `CommissionRate` DECIMAL(2,2) NOT NULL DEFAULT 0,
+  `AgentStartDate` DATETIME NULL,
+  `AgentFinishDate` DATETIME NULL DEFAULT '9999-12-31',
   INDEX `idx_agent_name` (`AgentName` ASC) VISIBLE,
   PRIMARY KEY (`AgentID`));
 
