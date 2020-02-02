@@ -542,21 +542,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>Select values for TxGrainSalesFact</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Calculate margin</from>
-      <to>Sort rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values for TxGrainSalesFact</from>
-      <to>Table output</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Microsoft Excel input Sales</from>
       <to>Remove unwanted characters</to>
       <enabled>Y</enabled>
@@ -577,13 +562,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows</from>
-      <to>Select values for TxGrainSalesFact</to>
+      <from>Calculate margin</from>
+      <to>Sort rows</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Sort rows</from>
       <to>Dummy (do nothing)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Sales Fact Table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -630,10 +620,40 @@
       <currency_symbol/>
     </calculation>
     <calculation>
-      <field_name>Margin</field_name>
+      <field_name>GrossMargin</field_name>
       <calc_type>SUBTRACT</calc_type>
       <field_a>DollarSales</field_a>
       <field_b>Cost</field_b>
+      <field_c/>
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>CommissionAmount</field_name>
+      <calc_type>MULTIPLY</calc_type>
+      <field_a>DollarSales</field_a>
+      <field_b>CommissionRate</field_b>
+      <field_c/>
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>NetMargin</field_name>
+      <calc_type>SUBTRACT</calc_type>
+      <field_a>GrossMargin</field_a>
+      <field_b>CommissionAmount</field_b>
       <field_c/>
       <value_type>Number</value_type>
       <value_length>-1</value_length>
@@ -653,7 +673,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
+      <xloc>992</xloc>
       <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
@@ -770,7 +790,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>992</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1047,8 +1067,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>576</yloc>
+      <xloc>1360</xloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1070,7 +1090,7 @@
       <key>SaleID</key>
     </keys_1>
     <keys_2>
-      <key>SaleID</key>
+      <key>SaleID_item</key>
     </keys_2>
     <attributes/>
     <cluster_schema/>
@@ -1122,7 +1142,7 @@
     <fields>
       <field>
         <name>SaleID</name>
-        <type>Number</type>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
@@ -1239,8 +1259,8 @@
     </file>
     <fields>
       <field>
-        <name>SaleID</name>
-        <type>Number</type>
+        <name>SaleID_item</name>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
@@ -1252,7 +1272,7 @@
       </field>
       <field>
         <name>LineID</name>
-        <type>Number</type>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
@@ -1264,7 +1284,7 @@
       </field>
       <field>
         <name>Prod_Key</name>
-        <type>Number</type>
+        <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
@@ -1368,8 +1388,8 @@
     </GUI>
   </step>
   <step>
-    <name>Select values for TxGrainSalesFact</name>
-    <type>SelectValues</type>
+    <name>Sales Fact Table</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1378,56 +1398,68 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>db_connect</connection>
+    <schema/>
+    <table>txgrainsalesfact</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
     <fields>
       <field>
-        <name>SaleID</name>
-        <rename>SalesID</rename>
+        <column_name>ProductID</column_name>
+        <stream_name>ProductID</stream_name>
       </field>
       <field>
-        <name>CustomerID</name>
-        <rename/>
+        <column_name>CustomerID</column_name>
+        <stream_name>CustomerID</stream_name>
       </field>
       <field>
-        <name>MarketID</name>
-        <rename/>
+        <column_name>AgentID</column_name>
+        <stream_name>AgentID</stream_name>
       </field>
       <field>
-        <name>AgentID</name>
-        <rename/>
+        <column_name>TimeID</column_name>
+        <stream_name>TimeID</stream_name>
       </field>
       <field>
-        <name>CommissionRate</name>
-        <rename>CommissionAmount</rename>
+        <column_name>MarketID</column_name>
+        <stream_name>MarketID</stream_name>
       </field>
       <field>
-        <name>TimeID</name>
-        <rename/>
+        <column_name>UnitsCost</column_name>
+        <stream_name>UnitPrice</stream_name>
       </field>
       <field>
-        <name>LineID</name>
-        <rename/>
+        <column_name>GrossMargin</column_name>
+        <stream_name>GrossMargin</stream_name>
       </field>
       <field>
-        <name>UnitSales</name>
-        <rename/>
+        <column_name>CommissionAmount</column_name>
+        <stream_name>CommissionAmount</stream_name>
       </field>
       <field>
-        <name>UnitPrice</name>
-        <rename>UnitsCost</rename>
+        <column_name>UnitSales</column_name>
+        <stream_name>UnitSales</stream_name>
       </field>
       <field>
-        <name>ProductID</name>
-        <rename/>
+        <column_name>LineID</column_name>
+        <stream_name>LineID</stream_name>
       </field>
       <field>
-        <name>Margin</name>
-        <rename/>
+        <column_name>NetMargin</column_name>
+        <stream_name>NetMargin</stream_name>
       </field>
-      <field>
-        <name>AgentID</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1438,7 +1470,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
+      <xloc>1168</xloc>
       <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1471,14 +1503,6 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>Market</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
         <name>MarketID</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
@@ -1495,23 +1519,7 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>CommissionRate</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
         <name>TimeID</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>SaleID</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1521,14 +1529,6 @@
       <field>
         <name>LineID</name>
         <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>Prod_Key</name>
-        <ascending>N</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
@@ -1559,39 +1559,23 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>CostID</name>
-        <ascending>N</ascending>
+        <name>GrossMargin</name>
+        <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
       <field>
-        <name>AvgProdCost</name>
-        <ascending>N</ascending>
+        <name>CommissionAmount</name>
+        <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
       <field>
-        <name>DollarSales</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>Cost</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>Margin</name>
+        <name>NetMargin</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1608,7 +1592,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
+      <xloc>1168</xloc>
       <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1633,7 +1617,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>SaleID</name>
+        <name>SaleID_item</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1806,94 +1790,6 @@
     <GUI>
       <xloc>464</xloc>
       <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>db_connect</connection>
-    <schema/>
-    <table/>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>SalesID</column_name>
-        <stream_name>SalesID</stream_name>
-      </field>
-      <field>
-        <column_name>CustomerID</column_name>
-        <stream_name>CustomerID</stream_name>
-      </field>
-      <field>
-        <column_name>MarketID</column_name>
-        <stream_name>MarketID</stream_name>
-      </field>
-      <field>
-        <column_name>AgentID</column_name>
-        <stream_name>AgentID</stream_name>
-      </field>
-      <field>
-        <column_name>CommissionAmount</column_name>
-        <stream_name>CommissionAmount</stream_name>
-      </field>
-      <field>
-        <column_name>TimeID</column_name>
-        <stream_name>TimeID</stream_name>
-      </field>
-      <field>
-        <column_name>LineID</column_name>
-        <stream_name>LineID</stream_name>
-      </field>
-      <field>
-        <column_name>UnitSales</column_name>
-        <stream_name>UnitSales</stream_name>
-      </field>
-      <field>
-        <column_name>UnitsCost</column_name>
-        <stream_name>UnitsCost</stream_name>
-      </field>
-      <field>
-        <column_name>ProductID</column_name>
-        <stream_name>ProductID</stream_name>
-      </field>
-      <field>
-        <column_name>Margin</column_name>
-        <stream_name>Margin</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>944</xloc>
-      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
