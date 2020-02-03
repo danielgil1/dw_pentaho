@@ -319,7 +319,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>208</xloc>
+      <xloc>288</xloc>
       <yloc>112</yloc>
     </entry>
     <entry>
@@ -349,7 +349,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
+      <xloc>80</xloc>
       <yloc>352</yloc>
     </entry>
     <entry>
@@ -385,7 +385,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>752</xloc>
       <yloc>240</yloc>
     </entry>
     <entry>
@@ -421,7 +421,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
+      <xloc>496</xloc>
       <yloc>112</yloc>
     </entry>
     <entry>
@@ -457,7 +457,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>752</xloc>
       <yloc>112</yloc>
     </entry>
     <entry>
@@ -493,7 +493,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
+      <xloc>512</xloc>
       <yloc>240</yloc>
     </entry>
     <entry>
@@ -529,7 +529,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
+      <xloc>320</xloc>
       <yloc>240</yloc>
     </entry>
     <entry>
@@ -565,7 +565,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
+      <xloc>80</xloc>
       <yloc>240</yloc>
     </entry>
   </entries>

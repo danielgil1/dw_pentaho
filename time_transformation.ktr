@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>time_dim_transformation</name>
+    <name>time_transformation</name>
     <description />
     <extended_description />
     <trans_version />
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -501,10 +502,148 @@
   <order>
     <hop>
       <from>Microsoft Excel Input</from>
-      <to>Table output</to>
+      <to>DimDates</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimDates</from>
+      <to>Metadata structure of stream</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>DimDates</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>conn_dw_overhill</connection>
+    <schema />
+    <table>DimDates</table>
+    <commit>100</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>DateNum</column_name>
+        <stream_name>DateNum</stream_name>
+      </field>
+      <field>
+        <column_name>Date</column_name>
+        <stream_name>Date</stream_name>
+      </field>
+      <field>
+        <column_name>YearMonthNum</column_name>
+        <stream_name>YearMonthNum</stream_name>
+      </field>
+      <field>
+        <column_name>Calendar_Quarter</column_name>
+        <stream_name>Calendar_Quarter</stream_name>
+      </field>
+      <field>
+        <column_name>MonthNum</column_name>
+        <stream_name>MonthNum</stream_name>
+      </field>
+      <field>
+        <column_name>MonthName</column_name>
+        <stream_name>MonthName</stream_name>
+      </field>
+      <field>
+        <column_name>MonthShortName</column_name>
+        <stream_name>MonthShortName</stream_name>
+      </field>
+      <field>
+        <column_name>WeekNum</column_name>
+        <stream_name>WeekNum</stream_name>
+      </field>
+      <field>
+        <column_name>DayNumOfYear</column_name>
+        <stream_name>DayNumOfYear</stream_name>
+      </field>
+      <field>
+        <column_name>DayNumOfMonth</column_name>
+        <stream_name>DayNumOfMonth</stream_name>
+      </field>
+      <field>
+        <column_name>DayNumOfWeek</column_name>
+        <stream_name>DayNumOfWeek</stream_name>
+      </field>
+      <field>
+        <column_name>DayName</column_name>
+        <stream_name>DayName</stream_name>
+      </field>
+      <field>
+        <column_name>DayShortName</column_name>
+        <stream_name>DayShortName</stream_name>
+      </field>
+      <field>
+        <column_name>Quarter</column_name>
+        <stream_name>Quarter</stream_name>
+      </field>
+      <field>
+        <column_name>YearQuarterNum</column_name>
+        <stream_name>YearQuarterNum</stream_name>
+      </field>
+      <field>
+        <column_name>DayNumOfQuarter</column_name>
+        <stream_name>DayNumOfQuarter</stream_name>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Metadata structure of stream</name>
+    <type>StepMetastructure</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Microsoft Excel Input</name>
     <type>ExcelInput</type>
@@ -766,113 +905,6 @@
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output</name>
-    <type>TableOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>conn_dw_overhill</connection>
-    <schema />
-    <table>DimDates</table>
-    <commit>100</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field />
-    <fields>
-      <field>
-        <column_name>DateNum</column_name>
-        <stream_name>DateNum</stream_name>
-      </field>
-      <field>
-        <column_name>Date</column_name>
-        <stream_name>Date</stream_name>
-      </field>
-      <field>
-        <column_name>YearMonthNum</column_name>
-        <stream_name>YearMonthNum</stream_name>
-      </field>
-      <field>
-        <column_name>Calendar_Quarter</column_name>
-        <stream_name>Calendar_Quarter</stream_name>
-      </field>
-      <field>
-        <column_name>MonthNum</column_name>
-        <stream_name>MonthNum</stream_name>
-      </field>
-      <field>
-        <column_name>MonthName</column_name>
-        <stream_name>MonthName</stream_name>
-      </field>
-      <field>
-        <column_name>MonthShortName</column_name>
-        <stream_name>MonthShortName</stream_name>
-      </field>
-      <field>
-        <column_name>WeekNum</column_name>
-        <stream_name>WeekNum</stream_name>
-      </field>
-      <field>
-        <column_name>DayNumOfYear</column_name>
-        <stream_name>DayNumOfYear</stream_name>
-      </field>
-      <field>
-        <column_name>DayNumOfMonth</column_name>
-        <stream_name>DayNumOfMonth</stream_name>
-      </field>
-      <field>
-        <column_name>DayNumOfWeek</column_name>
-        <stream_name>DayNumOfWeek</stream_name>
-      </field>
-      <field>
-        <column_name>DayName</column_name>
-        <stream_name>DayName</stream_name>
-      </field>
-      <field>
-        <column_name>DayShortName</column_name>
-        <stream_name>DayShortName</stream_name>
-      </field>
-      <field>
-        <column_name>Quarter</column_name>
-        <stream_name>Quarter</stream_name>
-      </field>
-      <field>
-        <column_name>YearQuarterNum</column_name>
-        <stream_name>YearQuarterNum</stream_name>
-      </field>
-      <field>
-        <column_name>DayNumOfQuarter</column_name>
-        <stream_name>DayNumOfQuarter</stream_name>
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>464</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>

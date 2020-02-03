@@ -434,27 +434,6 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Need to check how to handle round Volume by package</note>
-      <xloc>288</xloc>
-      <yloc>352</yloc>
-      <width>347</width>
-      <heigth>26</heigth>
-      <fontname>.AppleSystemUIFont</fontname>
-      <fontsize>13</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>dw3</name>
@@ -590,7 +569,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Group by</from>
+      <from>Group by Product, Year and PackageSize</from>
       <to>Calculate AVG cost</to>
       <enabled>Y</enabled>
     </hop>
@@ -606,7 +585,7 @@
     </hop>
     <hop>
       <from>Compute Package Volume</from>
-      <to>Group by</to>
+      <to>Group by Product, Year and PackageSize</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -677,6 +656,11 @@
     <hop>
       <from>Filter rows with no price</from>
       <to>Update DimProducts SDC Type 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Update DimProducts SDC Type 2</from>
+      <to>Metadata structure of stream</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -791,7 +775,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>288</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1088,7 +1072,7 @@
     </GUI>
   </step>
   <step>
-    <name>Group by</name>
+    <name>Group by Product, Year and PackageSize</name>
     <type>GroupBy</type>
     <description />
     <distribute>Y</distribute>
@@ -1139,7 +1123,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
+      <xloc>512</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1968,6 +1952,32 @@
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
+      <yloc>1104</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Metadata structure of stream</name>
+    <type>StepMetastructure</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>384</xloc>
       <yloc>1104</yloc>
       <draw>Y</draw>
     </GUI>
