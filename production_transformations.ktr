@@ -2,21 +2,21 @@
 <transformation>
   <info>
     <name>production_transformations</name>
-    <description/>
-    <extended_description/>
-    <trans_version/>
+    <description />
+    <extended_description />
+    <trans_version />
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <size_limit_lines/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <size_limit_lines />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -41,37 +41,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>ERRORS</id>
@@ -125,11 +125,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -207,10 +207,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -273,10 +273,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -349,10 +349,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -401,9 +401,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection/>
-      <table/>
-      <field/>
+      <connection />
+      <table />
+      <field />
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -414,7 +414,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file/>
+    <shared_objects_file />
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -444,9 +444,9 @@
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
@@ -503,9 +503,9 @@
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
@@ -615,29 +615,60 @@
     </hop>
     <hop>
       <from>Filter rows with no price</from>
-      <to>Update DimProducts SDC Type 2</to>
+      <to>Update DimProducts SCD Type 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Update DimProducts SDC Type 2</from>
+      <from>Update DimProducts SCD Type 2</from>
       <to>Metadata structure of stream</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Extract Brand and Type</name>
-    <type>RegexEval</type>
-    <description/>
+    <name>DimHistCost_Table Input</name>
+    <type>TableInput</type>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
+    </partitioning>
+    <connection>dw_overhill</connection>
+    <sql>SELECT * FROM DimHistCost</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extract Brand and Type</name>
+    <type>RegexEval</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
     </partitioning>
     <script>(.*)(Pinot.*|Merlot.*)</script>
     <matcher>Description</matcher>
-    <resultfieldname/>
+    <resultfieldname />
     <usevar>N</usevar>
     <allowcapturegroups>Y</allowcapturegroups>
     <replacefields>Y</replacefields>
@@ -652,32 +683,31 @@
       <field>
         <name>Brand</name>
         <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
+        <format />
+        <group />
+        <decimal />
         <length>-1</length>
         <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
+        <nullif />
+        <ifnull />
         <trimtype>none</trimtype>
-        <currency/>
+        <currency />
       </field>
       <field>
         <name>Type</name>
         <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
+        <format />
+        <group />
+        <decimal />
         <length>-1</length>
         <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
+        <nullif />
+        <ifnull />
         <trimtype>none</trimtype>
-        <currency/>
+        <currency />
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -693,17 +723,17 @@
   <step>
     <name>Extract Brand and Type from Desc</name>
     <type>RegexEval</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <script>(.*)(Pinot.*|Merlot.*)</script>
     <matcher>Description</matcher>
-    <resultfieldname/>
+    <resultfieldname />
     <usevar>N</usevar>
     <allowcapturegroups>Y</allowcapturegroups>
     <replacefields>Y</replacefields>
@@ -718,32 +748,31 @@
       <field>
         <name>Brand</name>
         <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
+        <format />
+        <group />
+        <decimal />
         <length>-1</length>
         <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
+        <nullif />
+        <ifnull />
         <trimtype>none</trimtype>
-        <currency/>
+        <currency />
       </field>
       <field>
         <name>Type</name>
         <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
+        <format />
+        <group />
+        <decimal />
         <length>-1</length>
         <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
+        <nullif />
+        <ifnull />
         <trimtype>none</trimtype>
-        <currency/>
+        <currency />
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -759,26 +788,25 @@
   <step>
     <name>Filter rows with no price</name>
     <type>FilterRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-    <send_true_to>Update DimProducts SDC Type 2</send_true_to>
-    <send_false_to/>
+    <send_true_to>Update DimProducts SCD Type 2</send_true_to>
+    <send_false_to />
     <compare>
       <condition>
         <negated>N</negated>
         <leftvalue>Price</leftvalue>
         <function>IS NOT NULL</function>
-        <rightvalue/>
+        <rightvalue />
       </condition>
     </compare>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -792,15 +820,257 @@
     </GUI>
   </step>
   <step>
-    <name>Merge Join</name>
-    <type>MergeJoin</type>
-    <description/>
+    <name>Input Product from Production System</name>
+    <type>ExcelInput</type>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield />
+    <sheetfield />
+    <sheetrownumfield />
+    <rownumfield />
+    <sheetfield />
+    <filefield />
+    <limit>0</limit>
+    <encoding />
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field />
+    <accept_stepname />
+    <file>
+      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\ProductionSystem\Product.xlsx</name>
+      <filemask />
+      <exclude_filemask />
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>ProdCode</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Description</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Group</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>Product</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory />
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory />
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory />
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName />
+    <pathFieldName />
+    <hiddenFieldName />
+    <lastModificationTimeFieldName />
+    <uriNameFieldName />
+    <rootUriNameFieldName />
+    <extensionFieldName />
+    <sizeFieldName />
+    <spreadsheet_type>POI</spreadsheet_type>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Input Product from Sales</name>
+    <type>ExcelInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield />
+    <sheetfield />
+    <sheetrownumfield />
+    <rownumfield />
+    <sheetfield />
+    <filefield />
+    <limit>0</limit>
+    <encoding />
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field />
+    <accept_stepname />
+    <file>
+      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Product.xlsx</name>
+      <filemask />
+      <exclude_filemask />
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>ProductKey</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Description</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Group</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>ProdYear</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Price</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>Product</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory />
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory />
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory />
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName />
+    <pathFieldName />
+    <hiddenFieldName />
+    <lastModificationTimeFieldName />
+    <uriNameFieldName />
+    <rootUriNameFieldName />
+    <extensionFieldName />
+    <sizeFieldName />
+    <spreadsheet_type>POI</spreadsheet_type>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge Join</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
     </partitioning>
     <join_type>INNER</join_type>
     <step1>Extract Brand and Type</step1>
@@ -811,8 +1081,7 @@
     <keys_2>
       <key>ProdCode</key>
     </keys_2>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -828,13 +1097,13 @@
   <step>
     <name>Merge Join Prod Sales and Prod Production</name>
     <type>MergeJoin</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <join_type>FULL OUTER</join_type>
     <step1>Sort rows by Description and ProdYear</step1>
@@ -849,8 +1118,7 @@
       <key>Group</key>
       <key>ProdYear</key>
     </keys_2>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -866,18 +1134,17 @@
   <step>
     <name>Metadata structure of stream</name>
     <type>StepMetastructure</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <outputRowcount>N</outputRowcount>
-    <rowcountField/>
-    <attributes/>
-    <cluster_schema/>
+    <rowcountField />
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -891,261 +1158,15 @@
     </GUI>
   </step>
   <step>
-    <name>Input Product from Sales</name>
-    <type>ExcelInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
-    <limit>0</limit>
-    <encoding/>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
-    <file>
-      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Product.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>ProductKey</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Description</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Group</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>ProdYear</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Price</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-    </fields>
-    <sheets>
-      <sheet>
-        <name>Product</name>
-        <startrow>0</startrow>
-        <startcol>0</startcol>
-      </sheet>
-    </sheets>
-    <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
-    <password>Encrypted </password>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Input Product from Production System</name>
-    <type>ExcelInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
-    <limit>0</limit>
-    <encoding/>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
-    <file>
-      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\ProductionSystem\Product.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>ProdCode</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Description</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Group</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-    </fields>
-    <sheets>
-      <sheet>
-        <name>Product</name>
-        <startrow>0</startrow>
-        <startcol>0</startcol>
-      </sheet>
-    </sheets>
-    <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
-    <password>Encrypted </password>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Select values for DimProduct</name>
     <type>SelectValues</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
@@ -1174,8 +1195,7 @@
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1191,13 +1211,13 @@
   <step>
     <name>Select values for DimProducts</name>
     <type>SelectValues</type>
-    <description/>
+    <description />
     <distribute>N</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
@@ -1226,8 +1246,7 @@
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1243,20 +1262,20 @@
   <step>
     <name>Sort Products by Description and ProdYear</name>
     <type>SortRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory/>
+    <free_memory />
     <compress>N</compress>
-    <compress_variable/>
+    <compress_variable />
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1276,8 +1295,7 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1293,20 +1311,20 @@
   <step>
     <name>Sort rows by Description and ProdYear</name>
     <type>SortRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory/>
+    <free_memory />
     <compress>N</compress>
-    <compress_variable/>
+    <compress_variable />
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1326,8 +1344,7 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1341,17 +1358,17 @@
     </GUI>
   </step>
   <step>
-    <name>Update DimProducts SDC Type 2</name>
+    <name>Update DimProducts SCD Type 2</name>
     <type>DimensionLookup</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-    <schema/>
+    <schema />
     <table>DimProducts</table>
     <connection>dw3</connection>
     <commit>100</commit>
@@ -1362,7 +1379,7 @@
         <lookup>CostID</lookup>
       </key>
       <date>
-        <name/>
+        <name />
         <from>PriceDateFrom</from>
         <to>PriceDateTo</to>
       </date>
@@ -1398,23 +1415,22 @@
       </field>
       <return>
         <name>ProductID</name>
-        <rename/>
+        <rename />
         <creation_method>autoinc</creation_method>
         <use_autoinc>Y</use_autoinc>
         <version>PriceVersion</version>
       </return>
     </fields>
-    <sequence/>
+    <sequence />
     <min_year>1900</min_year>
     <max_year>2199</max_year>
     <cache_size>-1</cache_size>
     <preload_cache>N</preload_cache>
     <use_start_date_alternative>N</use_start_date_alternative>
     <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name/>
+    <start_date_field_name />
     <useBatch>N</useBatch>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1427,42 +1443,9 @@
       <draw>Y</draw>
     </GUI>
   </step>
-  <step>
-    <name>DimHistCost_Table Input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>dw_overhill</connection>
-    <sql>SELECT * FROM DimHistCost</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step_error_handling>
   </step_error_handling>
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes/>
 </transformation>

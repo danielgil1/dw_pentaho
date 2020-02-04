@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>week_sales_transformations</name>
+    <name>market_sales_transformation</name>
     <description />
     <extended_description />
     <trans_version />
@@ -527,22 +527,57 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel Input 2</from>
-      <to>Merge Join</to>
+      <from>Calculate margin</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Group by quarter and market</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Group by quarter and market</from>
+      <to>Quarterly Market Sales Fact Table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimDates Lookup</from>
+      <to>Extract year</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Quarterly Market Sales Fact Table</from>
+      <to>Metadata structure of stream</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>DimAgents Lookup</from>
+      <to>Sort by SalesID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort by SalesID</from>
+      <to>Merge Join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Microsoft Excel Input 2</from>
+      <to>Sort by SalesItemID</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort by SalesItemID</from>
       <to>Merge Join</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Merge Join</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
       <to>DimProducts Lookup</to>
       <enabled>Y</enabled>
     </hop>
@@ -553,37 +588,22 @@
     </hop>
     <hop>
       <from>DimHistCost Lookup</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
       <to>Calculate margin</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Calculate margin</from>
-      <to>Sort rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows</from>
-      <to>Group by year, week of year, market, customer, agent and product</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Group by year, week of year, market, customer, agent and product</from>
-      <to>Weekly Sales Fact Table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>DimDates Lookup</from>
-      <to>Extract year</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Extract year</from>
-      <to>DimAgents Lookup</to>
+      <to>Concat Fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Weekly Sales Fact Table</from>
-      <to>Metadata structure of stream</to>
+      <from>Concat Fields</from>
+      <to>DimAgents Lookup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -752,7 +772,7 @@
     <name>DimAgents Lookup</name>
     <type>DBLookup</type>
     <description />
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution />
     <copies>1</copies>
     <partitioning>
@@ -796,7 +816,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
+      <xloc>128</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -888,8 +908,8 @@
         <type>Integer</type>
       </value>
       <value>
-        <name>WeekNum</name>
-        <rename>WeekNum</rename>
+        <name>YearQuarterNum</name>
+        <rename>YearQuarterNum</rename>
         <default />
         <type>None</type>
       </value>
@@ -949,8 +969,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>272</yloc>
+      <xloc>400</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1049,8 +1069,32 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>272</yloc>
+      <xloc>272</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1090,6 +1134,126 @@
     <GUI>
       <xloc>272</xloc>
       <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <send_true_to>Calculate margin</send_true_to>
+    <send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>SaleID</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue />
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>LineID</leftvalue>
+                <function>IS NOT NULL</function>
+                <rightvalue />
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <conditions>
+                  <condition>
+                    <negated>N</negated>
+                    <leftvalue>SaleID_1</leftvalue>
+                    <function>IS NOT NULL</function>
+                    <rightvalue />
+                  </condition>
+                  <condition>
+                    <negated>N</negated>
+                    <operator>AND</operator>
+                    <conditions>
+                      <condition>
+                        <negated>N</negated>
+                        <leftvalue>CustomerID</leftvalue>
+                        <function>IS NOT NULL</function>
+                        <rightvalue />
+                      </condition>
+                      <condition>
+                        <negated>N</negated>
+                        <operator>AND</operator>
+                        <conditions>
+                          <condition>
+                            <negated>N</negated>
+                            <leftvalue>MarketID</leftvalue>
+                            <function>IS NOT NULL</function>
+                            <rightvalue />
+                          </condition>
+                          <condition>
+                            <negated>N</negated>
+                            <operator>AND</operator>
+                            <conditions>
+                              <condition>
+                                <negated>N</negated>
+                                <leftvalue>TimeID</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue />
+                              </condition>
+                              <condition>
+                                <negated>N</negated>
+                                <operator>AND</operator>
+                                <leftvalue>AgentID</leftvalue>
+                                <function>IS NOT NULL</function>
+                                <rightvalue />
+                              </condition>
+                            </conditions>
+                          </condition>
+                        </conditions>
+                      </condition>
+                    </conditions>
+                  </condition>
+                </conditions>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>ProductID</leftvalue>
+                <function>IS NOT NULL</function>
+                <rightvalue />
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>CostID</leftvalue>
+                <function>IS NOT NULL</function>
+                <rightvalue />
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1150,7 +1314,7 @@
     </GUI>
   </step>
   <step>
-    <name>Group by year, week of year, market, customer, agent and product</name>
+    <name>Group by quarter and market</name>
     <type>GroupBy</type>
     <description />
     <distribute>Y</distribute>
@@ -1170,22 +1334,10 @@
     <give_back_row>N</give_back_row>
     <group>
       <field>
-        <name>Year</name>
-      </field>
-      <field>
-        <name>WeekNum</name>
+        <name>Quarter</name>
       </field>
       <field>
         <name>MarketID</name>
-      </field>
-      <field>
-        <name>CustomerID</name>
-      </field>
-      <field>
-        <name>AgentID</name>
-      </field>
-      <field>
-        <name>ProductID</name>
       </field>
     </group>
     <fields>
@@ -1226,9 +1378,15 @@
         <valuefield />
       </field>
       <field>
-        <aggregate>TimeID</aggregate>
-        <subject>TimeID</subject>
-        <type>FIRST_INCL_NULL</type>
+        <aggregate>TotalCustomers</aggregate>
+        <subject>CustomerID</subject>
+        <type>COUNT_ALL</type>
+        <valuefield />
+      </field>
+      <field>
+        <aggregate>TotalOrders</aggregate>
+        <subject>SaleID</subject>
+        <type>COUNT_ALL</type>
         <valuefield />
       </field>
     </fields>
@@ -1256,9 +1414,9 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Microsoft Excel Input 2</step1>
-    <step2>DimAgents Lookup</step2>
+    <join_type>FULL OUTER</join_type>
+    <step1>Sort by SalesItemID</step1>
+    <step2>Sort by SalesID</step2>
     <keys_1>
       <key>SaleID</key>
     </keys_1>
@@ -1275,6 +1433,32 @@
     <GUI>
       <xloc>176</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Metadata structure of stream</name>
+    <type>StepMetastructure</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1565,81 +1749,6 @@
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <name>Year</name>
-      </field>
-      <field>
-        <name>WeekNum</name>
-      </field>
-      <field>
-        <name>Date</name>
-      </field>
-      <field>
-        <name>TimeID</name>
-      </field>
-      <field>
-        <name>SaleID</name>
-      </field>
-      <field>
-        <name>Cust_Key</name>
-      </field>
-      <field>
-        <name>CustomerID</name>
-      </field>
-      <field>
-        <name>MarketID</name>
-      </field>
-      <field>
-        <name>Market</name>
-      </field>
-      <field>
-        <name>Sales Agent</name>
-      </field>
-      <field>
-        <name>AgentID</name>
-      </field>
-      <field>
-        <name>CommissionRate</name>
-      </field>
-      <field>
-        <name>LineID</name>
-      </field>
-      <field>
-        <name>Prod_Key</name>
-      </field>
-      <field>
-        <name>UnitSales</name>
-      </field>
-      <field>
-        <name>UnitPrice</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Sort rows</name>
     <type>SortRows</type>
     <description />
@@ -1659,15 +1768,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>Year</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>WeekNum</name>
+        <name>Quarter</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1729,7 +1830,89 @@
     </GUI>
   </step>
   <step>
-    <name>Weekly Sales Fact Table</name>
+    <name>Sort by SalesID</name>
+    <type>SortRows</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory />
+    <compress>N</compress>
+    <compress_variable />
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>48</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort by SalesItemID</name>
+    <type>SortRows</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory />
+    <compress>N</compress>
+    <compress_variable />
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>SaleID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Quarterly Market Sales Fact Table</name>
     <type>TableOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -1816,8 +1999,8 @@
     </GUI>
   </step>
   <step>
-    <name>Metadata structure of stream</name>
-    <type>StepMetastructure</type>
+    <name>Concat Fields</name>
+    <type>ConcatFields</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -1826,8 +2009,67 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <outputRowcount>N</outputRowcount>
-    <rowcountField />
+    <separator />
+    <enclosure />
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>N</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding />
+    <endedLine />
+    <fileNameInField>N</fileNameInField>
+    <fileNameField />
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>file</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format />
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>Year</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>YearQuarterNum</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <ConcatFields>
+      <targetFieldName>Quarter</targetFieldName>
+      <targetFieldLength>0</targetFieldLength>
+      <removeSelectedFields>N</removeSelectedFields>
+    </ConcatFields>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1836,8 +2078,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>576</yloc>
+      <xloc>208</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
