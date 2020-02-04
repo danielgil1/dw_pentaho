@@ -2,21 +2,21 @@
 <transformation>
   <info>
     <name>customer_transformation</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -41,37 +41,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -125,11 +125,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -207,10 +207,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -273,10 +273,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -349,10 +349,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -401,9 +401,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -414,7 +414,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file />
+    <shared_objects_file/>
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -443,10 +443,10 @@
     <database>dw_overhill</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
@@ -502,10 +502,10 @@
     <database>dw_overhill</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
@@ -559,17 +559,17 @@
   </connection>
   <order>
     <hop>
-      <from>Microsoft Excel Input</from>
+      <from>Input Customer Jan 2018</from>
       <to>Add date Feb 2012</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel Input 2</from>
+      <from>Input Customer Feb 2019</from>
       <to>Add date Dec 2012</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Microsoft Excel Input 3</from>
+      <from>Input Customer Dec 2019</from>
       <to>Add date Sept 2016</to>
       <enabled>Y</enabled>
     </hop>
@@ -697,29 +697,30 @@
   <step>
     <name>Add date Dec 2012</name>
     <type>Constant</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
         <name>CustomerDate</name>
         <type>Date</type>
         <format>dd/MM/yyyy</format>
-        <currency />
-        <decimal />
-        <group />
+        <currency/>
+        <decimal/>
+        <group/>
         <nullif>01/12/2012</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -735,29 +736,30 @@
   <step>
     <name>Add date Feb 2012</name>
     <type>Constant</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
         <name>CustomerDate</name>
         <type>Date</type>
         <format>dd/MM/yyyy</format>
-        <currency />
-        <decimal />
-        <group />
+        <currency/>
+        <decimal/>
+        <group/>
         <nullif>01/02/2012</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -765,37 +767,38 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>80</yloc>
+      <xloc>512</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Add date Sept 2016</name>
     <type>Constant</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
         <name>CustomerDate</name>
         <type>Date</type>
         <format>dd/MM/yyyy</format>
-        <currency />
-        <decimal />
-        <group />
+        <currency/>
+        <decimal/>
+        <group/>
         <nullif>01/09/2016</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -803,24 +806,134 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>320</yloc>
+      <xloc>736</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Create normalized address</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <separator>, </separator>
+    <enclosure/>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>N</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>file</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>Street</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Location</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>City</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PostCode</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <ConcatFields>
+      <targetFieldName>Address</targetFieldName>
+      <targetFieldLength>0</targetFieldLength>
+      <removeSelectedFields>N</removeSelectedFields>
+    </ConcatFields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1200</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>DimCities Table</name>
     <type>TableOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>conn_customer_transformation</connection>
-    <schema />
+    <schema/>
     <table>DimCities</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
@@ -828,11 +941,11 @@
     <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
+    <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
+    <tablename_field/>
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>Y</return_keys>
     <return_field>CityID</return_field>
@@ -842,7 +955,8 @@
         <stream_name>City</stream_name>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -850,24 +964,24 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>832</yloc>
+      <xloc>752</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>DimLocations Table</name>
     <type>TableOutput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>conn_customer_transformation</connection>
-    <schema />
+    <schema/>
     <table>DimLocations</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
@@ -875,11 +989,11 @@
     <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
+    <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
+    <tablename_field/>
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>Y</return_keys>
     <return_field>LocationID</return_field>
@@ -897,7 +1011,8 @@
         <stream_name>PostCode</stream_name>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -905,25 +1020,25 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>656</yloc>
+      <xloc>240</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Dimension lookup/update</name>
     <type>DimensionLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <schema />
+    <schema/>
     <table>DimCustomers</table>
-    <connection />
+    <connection/>
     <commit>100</commit>
     <update>Y</update>
     <fields>
@@ -932,7 +1047,7 @@
         <lookup>CustKey</lookup>
       </key>
       <date>
-        <name />
+        <name/>
         <from>FirstUpdated</from>
         <to>LastUpdated</to>
       </date>
@@ -958,22 +1073,23 @@
       </field>
       <return>
         <name>CustomerID</name>
-        <rename />
+        <rename/>
         <creation_method>autoinc</creation_method>
         <use_autoinc>Y</use_autoinc>
         <version>isActive</version>
       </return>
     </fields>
-    <sequence />
+    <sequence/>
     <min_year>1900</min_year>
     <max_year>2199</max_year>
     <cache_size>5000</cache_size>
     <preload_cache>N</preload_cache>
     <use_start_date_alternative>N</use_start_date_alternative>
     <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name />
+    <start_date_field_name/>
     <useBatch>N</useBatch>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -989,25 +1105,26 @@
   <step>
     <name>Get Unique Cities</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>
       <field>
         <name>City</name>
         <case_insensitive>Y</case_insensitive>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1015,33 +1132,33 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>832</yloc>
+      <xloc>1376</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Insert / Update DimCustomers</name>
     <type>InsertUpdate</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>conn2</connection>
     <commit>100</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>
-      <schema />
+      <schema/>
       <table>DimCustomers</table>
       <key>
         <name>Cust ID</name>
         <field>CustKey</field>
         <condition>=</condition>
-        <name2 />
+        <name2/>
       </key>
       <value>
         <name>LastAddress</name>
@@ -1079,7 +1196,8 @@
         <update>Y</update>
       </value>
     </lookup>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1087,25 +1205,26 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>480</yloc>
+      <xloc>464</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Metadata structure of stream</name>
     <type>StepMetastructure</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <outputRowcount>N</outputRowcount>
-    <rowcountField />
-    <cluster_schema />
+    <rowcountField/>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1113,41 +1232,41 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>480</yloc>
+      <xloc>224</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel Input</name>
+    <name>Input Customer Jan 2018</name>
     <type>ExcelInput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <header>Y</header>
     <noempty>Y</noempty>
     <stoponempty>N</stoponempty>
-    <filefield />
-    <sheetfield />
-    <sheetrownumfield />
-    <rownumfield />
-    <sheetfield />
-    <filefield />
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
     <limit>0</limit>
-    <encoding />
+    <encoding/>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <accept_filenames>N</accept_filenames>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <file>
-      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem/Customer Jan 2018.xlsx</name>
-      <filemask />
-      <exclude_filemask />
+      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Customer Jan 2018.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
@@ -1159,10 +1278,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Name</name>
@@ -1171,10 +1290,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Address</name>
@@ -1183,10 +1302,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>MarketID</name>
@@ -1195,10 +1314,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
     </fields>
     <sheets>
@@ -1211,22 +1330,24 @@
     <strict_types>N</strict_types>
     <error_ignored>N</error_ignored>
     <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory />
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <spreadsheet_type>POI</spreadsheet_type>
-    <cluster_schema />
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1234,41 +1355,41 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>80</yloc>
+      <xloc>192</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel Input 2</name>
+    <name>Input Customer Feb 2019</name>
     <type>ExcelInput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <header>Y</header>
     <noempty>Y</noempty>
     <stoponempty>N</stoponempty>
-    <filefield />
-    <sheetfield />
-    <sheetrownumfield />
-    <rownumfield />
-    <sheetfield />
-    <filefield />
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
     <limit>0</limit>
-    <encoding />
+    <encoding/>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <accept_filenames>N</accept_filenames>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <file>
-      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem/Customer Feb 2019.xlsx</name>
-      <filemask />
-      <exclude_filemask />
+      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Customer Feb 2019.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
@@ -1280,10 +1401,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Name</name>
@@ -1292,10 +1413,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Address</name>
@@ -1304,10 +1425,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>MarketID</name>
@@ -1316,10 +1437,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
     </fields>
     <sheets>
@@ -1332,22 +1453,24 @@
     <strict_types>N</strict_types>
     <error_ignored>N</error_ignored>
     <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory />
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <spreadsheet_type>POI</spreadsheet_type>
-    <cluster_schema />
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1361,35 +1484,35 @@
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel Input 3</name>
+    <name>Input Customer Dec 2019</name>
     <type>ExcelInput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <header>Y</header>
     <noempty>Y</noempty>
     <stoponempty>N</stoponempty>
-    <filefield />
-    <sheetfield />
-    <sheetrownumfield />
-    <rownumfield />
-    <sheetfield />
-    <filefield />
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
     <limit>0</limit>
-    <encoding />
+    <encoding/>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <accept_filenames>N</accept_filenames>
-    <accept_field />
-    <accept_stepname />
+    <accept_field/>
+    <accept_stepname/>
     <file>
-      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem/Customer Dec 2019.xlsx</name>
-      <filemask />
-      <exclude_filemask />
+      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Customer Dec 2019.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
@@ -1401,10 +1524,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Name</name>
@@ -1413,10 +1536,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>Address</name>
@@ -1425,10 +1548,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
       <field>
         <name>MarketID</name>
@@ -1437,10 +1560,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
       </field>
     </fields>
     <sheets>
@@ -1453,22 +1576,24 @@
     <strict_types>N</strict_types>
     <error_ignored>N</error_ignored>
     <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory />
+    <bad_line_files_destination_directory/>
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
+    <error_line_files_destination_directory/>
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
+    <line_number_files_destination_directory/>
     <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <spreadsheet_type>POI</spreadsheet_type>
-    <cluster_schema />
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1476,21 +1601,61 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>320</yloc>
+      <xloc>1088</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Normalize address to UPPERCASE</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>Address</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>upper</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>crlf</remove_special_characters>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Select city</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
@@ -1498,7 +1663,8 @@
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1506,28 +1672,28 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>576</yloc>
+      <xloc>1136</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Sort by City</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1539,7 +1705,8 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1547,28 +1714,28 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>704</yloc>
+      <xloc>1376</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Sort merged rows</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1604,7 +1771,8 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1612,7 +1780,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
+      <xloc>512</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1620,20 +1788,20 @@
   <step>
     <name>Sort rows by ID, date and address</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1661,7 +1829,8 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1669,28 +1838,28 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>480</yloc>
+      <xloc>976</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Sort rows by Location</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1702,7 +1871,8 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1710,21 +1880,21 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>656</yloc>
+      <xloc>544</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Split Fields</name>
     <type>FieldSplitter</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <splitfield>Address</splitfield>
     <delimiter>,</delimiter>
@@ -1732,66 +1902,67 @@
     <fields>
       <field>
         <name>Street</name>
-        <id />
+        <id/>
         <idrem>N</idrem>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
-        <currency />
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
       </field>
       <field>
         <name>Location</name>
-        <id />
+        <id/>
         <idrem>N</idrem>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
-        <currency />
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
       </field>
       <field>
         <name>City</name>
-        <id />
+        <id/>
         <idrem>N</idrem>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
-        <currency />
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
       </field>
       <field>
         <name>PostCode</name>
-        <id />
+        <id/>
         <idrem>N</idrem>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
-        <currency />
+        <format/>
+        <group/>
+        <decimal/>
+        <currency/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1799,7 +1970,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>928</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1807,13 +1978,13 @@
   <step>
     <name>Stream lookup City</name>
     <type>StreamLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <from>DimCities Table</from>
     <input_sorted>N</input_sorted>
@@ -1828,11 +1999,12 @@
       <value>
         <name>CityID</name>
         <rename>CityID</rename>
-        <default />
+        <default/>
         <type>String</type>
       </value>
     </lookup>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1840,21 +2012,21 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>656</yloc>
+      <xloc>752</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Stream lookup Location</name>
     <type>StreamLookup</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <from>DimLocations Table</from>
     <input_sorted>N</input_sorted>
@@ -1869,11 +2041,12 @@
       <value>
         <name>LocationID</name>
         <rename>LocationID</rename>
-        <default />
+        <default/>
         <type>Integer</type>
       </value>
     </lookup>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1881,25 +2054,25 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>480</yloc>
+      <xloc>688</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Trim Cities</name>
     <type>RegexEval</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <script>^\W*(.+?)\W*$</script>
     <matcher>City</matcher>
-    <resultfieldname />
+    <resultfieldname/>
     <usevar>N</usevar>
     <allowcapturegroups>Y</allowcapturegroups>
     <replacefields>Y</replacefields>
@@ -1914,18 +2087,19 @@
       <field>
         <name>City</name>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
+        <format/>
+        <group/>
+        <decimal/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
-        <currency />
+        <currency/>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1933,25 +2107,25 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>304</yloc>
+      <xloc>1072</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Trim Locations</name>
     <type>RegexEval</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <script>^\W*(.+?)\.*\W*$</script>
     <matcher>Location</matcher>
-    <resultfieldname />
+    <resultfieldname/>
     <usevar>N</usevar>
     <allowcapturegroups>Y</allowcapturegroups>
     <replacefields>Y</replacefields>
@@ -1966,18 +2140,19 @@
       <field>
         <name>Location</name>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
+        <format/>
+        <group/>
+        <decimal/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
-        <currency />
+        <currency/>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1985,25 +2160,25 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>384</yloc>
+      <xloc>1216</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Trim PostCode</name>
     <type>RegexEval</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <script>^\W*(.+?)\.*\W*$</script>
     <matcher>PostCode</matcher>
-    <resultfieldname />
+    <resultfieldname/>
     <usevar>N</usevar>
     <allowcapturegroups>Y</allowcapturegroups>
     <replacefields>Y</replacefields>
@@ -2018,18 +2193,19 @@
       <field>
         <name>PostCode</name>
         <type>String</type>
-        <format />
-        <group />
-        <decimal />
+        <format/>
+        <group/>
+        <decimal/>
         <length>-1</length>
         <precision>-1</precision>
-        <nullif />
-        <ifnull />
+        <nullif/>
+        <ifnull/>
         <trimtype>none</trimtype>
-        <currency />
+        <currency/>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2037,33 +2213,87 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>480</yloc>
+      <xloc>1376</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Trim Street</name>
+    <type>RegexEval</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <script>^\W*(.+?)\.*\W*$</script>
+    <matcher>Street</matcher>
+    <resultfieldname/>
+    <usevar>N</usevar>
+    <allowcapturegroups>Y</allowcapturegroups>
+    <replacefields>Y</replacefields>
+    <canoneq>N</canoneq>
+    <caseinsensitive>N</caseinsensitive>
+    <comment>N</comment>
+    <dotall>N</dotall>
+    <multiline>N</multiline>
+    <unicode>N</unicode>
+    <unix>N</unix>
+    <fields>
+      <field>
+        <name>Street</name>
+        <type>String</type>
+        <format/>
+        <group/>
+        <decimal/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <nullif/>
+        <ifnull/>
+        <trimtype>none</trimtype>
+        <currency/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1376</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Unique Locations</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>
       <field>
         <name>Location</name>
         <case_insensitive>Y</case_insensitive>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2071,26 +2301,26 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>656</yloc>
+      <xloc>544</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
     <name>Unique rows</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>
       <field>
         <name>Cust ID</name>
@@ -2101,7 +2331,8 @@
         <case_insensitive>Y</case_insensitive>
       </field>
     </fields>
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2114,209 +2345,10 @@
       <draw>N</draw>
     </GUI>
   </step>
-  <step>
-    <name>Normalize address to UPPERCASE</name>
-    <type>StringOperations</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>Address</in_stream_name>
-        <out_stream_name />
-        <trim_type>none</trim_type>
-        <lower_upper>upper</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char />
-        <pad_len />
-        <init_cap>no</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>crlf</remove_special_characters>
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>816</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Create normalized address</name>
-    <type>ConcatFields</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <separator>, </separator>
-    <enclosure />
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>N</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding />
-    <endedLine />
-    <fileNameInField>N</fileNameInField>
-    <fileNameField />
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format />
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
-    <fields>
-      <field>
-        <name>Street</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>Location</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>City</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>PostCode</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-    <ConcatFields>
-      <targetFieldName>Address</targetFieldName>
-      <targetFieldLength>0</targetFieldLength>
-      <removeSelectedFields>N</removeSelectedFields>
-    </ConcatFields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>864</xloc>
-      <yloc>480</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Trim Street</name>
-    <type>RegexEval</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <script>^\W*(.+?)\.*\W*$</script>
-    <matcher>Street</matcher>
-    <resultfieldname />
-    <usevar>N</usevar>
-    <allowcapturegroups>Y</allowcapturegroups>
-    <replacefields>Y</replacefields>
-    <canoneq>N</canoneq>
-    <caseinsensitive>N</caseinsensitive>
-    <comment>N</comment>
-    <dotall>N</dotall>
-    <multiline>N</multiline>
-    <unicode>N</unicode>
-    <unix>N</unix>
-    <fields>
-      <field>
-        <name>Street</name>
-        <type>String</type>
-        <format />
-        <group />
-        <decimal />
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif />
-        <ifnull />
-        <trimtype>none</trimtype>
-        <currency />
-      </field>
-    </fields>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>992</xloc>
-      <yloc>480</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step_error_handling>
   </step_error_handling>
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
+  <attributes/>
 </transformation>
