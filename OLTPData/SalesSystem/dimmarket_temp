@@ -1,4 +1,0 @@
-MarketID,MarketKey,MarketName,isActive,MarketValuation
-1,Vic,Victoria,1,0.00
-2,Aus,"Rest of Australia",1,0.00
-3,Int,International,1,0.00
