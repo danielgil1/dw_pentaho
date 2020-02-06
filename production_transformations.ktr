@@ -443,7 +443,7 @@
     <database>dw_overhill</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
     <servername />
     <data_tablespace />
     <index_tablespace />
@@ -477,6 +477,10 @@
         <attribute>N</attribute>
       </attribute>
       <attribute>
+        <code>SQL_CONNECT</code>
+        <attribute>set foreign_key_checks = 0</attribute>
+      </attribute>
+      <attribute>
         <code>STREAM_RESULTS</code>
         <attribute>Y</attribute>
       </attribute>
@@ -502,7 +506,7 @@
     <database>dw_overhill</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
     <servername />
     <data_tablespace />
     <index_tablespace />
@@ -542,6 +546,65 @@
       <attribute>
         <code>STREAM_RESULTS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>meta</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>meta_overhill</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
+        <attribute>UTC</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
@@ -619,8 +682,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Get System Info</from>
+      <to>Insert / Update Metadata</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Metadata for Transformation</from>
+      <to>Get System Info</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Update DimProducts SCD Type 2</from>
-      <to>Metadata structure of stream</to>
+      <to>Metadata for Transformation</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -846,7 +919,7 @@
     <accept_field />
     <accept_stepname />
     <file>
-      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\ProductionSystem\Product.xlsx</name>
+      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/ProductionSystem/Product.xlsx</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
@@ -955,7 +1028,7 @@
     <accept_field />
     <accept_stepname />
     <file>
-      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\SalesSystem\Product.xlsx</name>
+      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem/Product.xlsx</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
@@ -1128,32 +1201,6 @@
     <GUI>
       <xloc>1008</xloc>
       <yloc>608</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Metadata structure of stream</name>
-    <type>StepMetastructure</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <outputRowcount>N</outputRowcount>
-    <rowcountField />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1440,6 +1487,162 @@
     <GUI>
       <xloc>576</xloc>
       <yloc>752</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>Transformation</name>
+        <type>transformation name</type>
+      </field>
+      <field>
+        <name>LastHostExecution</name>
+        <type>IP address</type>
+      </field>
+      <field>
+        <name>LastExecution</name>
+        <type>system date (variable)</type>
+      </field>
+      <field>
+        <name>log</name>
+        <type>previous result log text</type>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>848</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Metadata for Transformation</name>
+    <type>StepMetastructure</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>752</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insert / Update Metadata</name>
+    <type>InsertUpdate</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>meta</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema />
+      <table>MetaOperations</table>
+      <key>
+        <name>Transformation</name>
+        <field>Transformation</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <key>
+        <name>Fieldname</name>
+        <field>Fieldname</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>Fieldname</name>
+        <rename>Fieldname</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>Comments</name>
+        <rename>Comments</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Type</name>
+        <rename>Type</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Length</name>
+        <rename>Length</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Precision</name>
+        <rename>Precision</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Origin</name>
+        <rename>Origin</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Transformation</name>
+        <rename>Transformation</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LastHostExecution</name>
+        <rename>LastHostExecution</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LastExecution</name>
+        <rename>LastExecution</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>848</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -499,6 +499,65 @@
       </attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>meta</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>meta_overhill</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
+        <attribute>UTC</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
       <from>Split Fields</from>
@@ -561,11 +620,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Insert into DimCustomers</from>
-      <to>Metadata structure of stream</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Microsoft Excel Input</from>
       <to>Normalize UPPERCASE filename</to>
       <enabled>Y</enabled>
@@ -578,6 +632,21 @@
     <hop>
       <from>Database lookup</from>
       <to>Insert into DimCustomers</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get System Info</from>
+      <to>Insert / Update Metadata</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Metadata for Transformation</from>
+      <to>Get System Info</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Insert into DimCustomers</from>
+      <to>Metadata for Transformation</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -753,6 +822,59 @@
     </GUI>
   </step>
   <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>conn</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema />
+      <table>DimLocations</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>Location</name>
+        <field>LocationName</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <key>
+        <name>PostCode</name>
+        <field>PostCode</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>LocationID</name>
+        <rename>LocationID</rename>
+        <default />
+        <type>None</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Extract Date from Filename</name>
     <type>RegexEval</type>
     <description />
@@ -876,13 +998,13 @@
     </remotesteps>
     <GUI>
       <xloc>288</xloc>
-      <yloc>464</yloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Metadata structure of stream</name>
-    <type>StepMetastructure</type>
+    <name>Microsoft Excel Input</name>
+    <type>ExcelInput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -891,8 +1013,98 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <outputRowcount>N</outputRowcount>
-    <rowcountField />
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield />
+    <sheetfield />
+    <sheetrownumfield />
+    <rownumfield />
+    <sheetfield />
+    <filefield />
+    <limit>0</limit>
+    <encoding />
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field />
+    <accept_stepname />
+    <file>
+      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem</name>
+      <filemask>Customer.*2019.*</filemask>
+      <exclude_filemask />
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>CustKey</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Name</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>Address</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+      <field>
+        <name>MarketKey</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+      </field>
+    </fields>
+    <sheets>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory />
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory />
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory />
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName>Filename</shortFileFieldName>
+    <pathFieldName />
+    <hiddenFieldName />
+    <lastModificationTimeFieldName />
+    <uriNameFieldName />
+    <rootUriNameFieldName />
+    <extensionFieldName />
+    <sizeFieldName />
+    <spreadsheet_type>POI</spreadsheet_type>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -901,8 +1113,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>480</yloc>
+      <xloc>96</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1466,8 +1678,8 @@
     </GUI>
   </step>
   <step>
-    <name>Microsoft Excel Input</name>
-    <type>ExcelInput</type>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -1476,98 +1688,24 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield />
-    <sheetfield />
-    <sheetrownumfield />
-    <rownumfield />
-    <sheetfield />
-    <filefield />
-    <limit>0</limit>
-    <encoding />
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field />
-    <accept_stepname />
-    <file>
-      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/SalesSystem</name>
-      <filemask>Customer.*2019.*</filemask>
-      <exclude_filemask />
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
     <fields>
       <field>
-        <name>CustKey</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <name>Transformation</name>
+        <type>transformation name</type>
       </field>
       <field>
-        <name>Name</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <name>LastHostExecution</name>
+        <type>IP address</type>
       </field>
       <field>
-        <name>Address</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <name>LastExecution</name>
+        <type>system date (variable)</type>
       </field>
       <field>
-        <name>MarketKey</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format />
-        <currency />
-        <decimal />
-        <group />
+        <name>log</name>
+        <type>previous result log text</type>
       </field>
     </fields>
-    <sheets>
-    </sheets>
-    <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory />
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName>Filename</shortFileFieldName>
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
-    <spreadsheet_type>POI</spreadsheet_type>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1576,14 +1714,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>48</yloc>
+      <xloc>288</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
+    <name>Metadata for Transformation</name>
+    <type>StepMetastructure</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -1592,33 +1730,94 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <connection>conn</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>624</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insert / Update Metadata</name>
+    <type>InsertUpdate</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>meta</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
     <lookup>
       <schema />
-      <table>DimLocations</table>
-      <orderby />
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
+      <table>MetaOperations</table>
       <key>
-        <name>Location</name>
-        <field>LocationName</field>
+        <name>Transformation</name>
+        <field>Transformation</field>
         <condition>=</condition>
         <name2 />
       </key>
       <key>
-        <name>PostCode</name>
-        <field>PostCode</field>
+        <name>Fieldname</name>
+        <field>Fieldname</field>
         <condition>=</condition>
         <name2 />
       </key>
       <value>
-        <name>LocationID</name>
-        <rename>LocationID</rename>
-        <default />
-        <type>None</type>
+        <name>Fieldname</name>
+        <rename>Fieldname</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>Comments</name>
+        <rename>Comments</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Type</name>
+        <rename>Type</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Length</name>
+        <rename>Length</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Precision</name>
+        <rename>Precision</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Origin</name>
+        <rename>Origin</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Transformation</name>
+        <rename>Transformation</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LastHostExecution</name>
+        <rename>LastHostExecution</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LastExecution</name>
+        <rename>LastExecution</rename>
+        <update>Y</update>
       </value>
     </lookup>
     <cluster_schema />
@@ -1630,7 +1829,7 @@
     </remotesteps>
     <GUI>
       <xloc>448</xloc>
-      <yloc>464</yloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

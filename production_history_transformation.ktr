@@ -2,21 +2,21 @@
 <transformation>
   <info>
     <name>production_history_transformation</name>
-    <description/>
-    <extended_description/>
-    <trans_version/>
+    <description />
+    <extended_description />
+    <trans_version />
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <size_limit_lines/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <size_limit_lines />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -41,37 +41,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>ERRORS</id>
@@ -125,11 +125,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -207,10 +207,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -273,10 +273,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -349,10 +349,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -401,9 +401,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection/>
-      <table/>
-      <field/>
+      <connection />
+      <table />
+      <field />
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -414,7 +414,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file/>
+    <shared_objects_file />
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -430,7 +430,7 @@
     <created_date>2020/02/04 17:15:58.704</created_date>
     <modified_user>-</modified_user>
     <modified_date>2020/02/04 17:15:58.704</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -443,11 +443,78 @@
     <database>dw_overhill</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
     <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
+        <attribute>UTC</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SQL_CONNECT</code>
+        <attribute>set foreign_key_checks = 0</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>meta</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>meta_overhill</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afa93dca9cd0990dfc25d282f79e</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.serverTimezone</code>
+        <attribute>UTC</attribute>
+      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -531,34 +598,48 @@
       <to>Filter null ProdCodes and Years</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Get System Info</from>
+      <to>Insert / Update Metadata</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Metadata for Transformation</from>
+      <to>Get System Info</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DimHistCost_Table</from>
+      <to>Metadata for Transformation</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Add PackageSize= 12</name>
     <type>Constant</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
         <name>PackageSize</name>
         <type>Integer</type>
         <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
+        <currency />
+        <decimal />
+        <group />
         <nullif>12</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -574,32 +655,30 @@
   <step>
     <name>Calculate AVG cost</name>
     <type>Calculator</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-    <failIfNoFile>N</failIfNoFile>
     <calculation>
       <field_name>AvgCostByPackage</field_name>
       <calc_type>DIVIDE</calc_type>
       <field_a>CostByPackage</field_a>
       <field_b>VolumeByPackage</field_b>
-      <field_c/>
+      <field_c />
       <value_type>None</value_type>
       <value_length>4</value_length>
       <value_precision>4</value_precision>
       <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
     </calculation>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -615,32 +694,30 @@
   <step>
     <name>Compute Package Volume</name>
     <type>Calculator</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-    <failIfNoFile>N</failIfNoFile>
     <calculation>
       <field_name>VolumeByUnitPack</field_name>
       <calc_type>DIVIDE</calc_type>
       <field_a>Volume</field_a>
       <field_b>PackageSize</field_b>
-      <field_c/>
+      <field_c />
       <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>0</value_precision>
       <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
+      <conversion_mask />
+      <decimal_symbol />
+      <grouping_symbol />
+      <currency_symbol />
     </calculation>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -656,31 +733,31 @@
   <step>
     <name>DimHistCost_Table</name>
     <type>TableOutput</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <connection>dw_over</connection>
-    <schema/>
+    <schema />
     <table>DimHistCost</table>
     <commit>1000</commit>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
+    <partitioning_field />
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
+    <tablename_field />
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>N</return_keys>
-    <return_field/>
+    <return_field />
     <fields>
       <field>
         <column_name>ProdCode</column_name>
@@ -703,8 +780,7 @@
         <stream_name>AvgCostByPackage</stream_name>
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -720,16 +796,16 @@
   <step>
     <name>Filter null ProdCodes and Years</name>
     <type>FilterRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <send_true_to>Compute Package Volume</send_true_to>
-    <send_false_to/>
+    <send_false_to />
     <compare>
       <condition>
         <negated>N</negated>
@@ -738,7 +814,7 @@
             <negated>N</negated>
             <leftvalue>ProdCode</leftvalue>
             <function>IS NOT NULL</function>
-            <rightvalue/>
+            <rightvalue />
             <value>
               <name>constant</name>
               <type>String</type>
@@ -746,7 +822,7 @@
               <length>-1</length>
               <precision>-1</precision>
               <isnull>N</isnull>
-              <mask/>
+              <mask />
             </value>
           </condition>
           <condition>
@@ -754,7 +830,7 @@
             <operator>AND</operator>
             <leftvalue>ProdYear</leftvalue>
             <function>IS NOT NULL</function>
-            <rightvalue/>
+            <rightvalue />
             <value>
               <name>constant</name>
               <type>String</type>
@@ -762,14 +838,13 @@
               <length>-1</length>
               <precision>-1</precision>
               <isnull>N</isnull>
-              <mask/>
+              <mask />
             </value>
           </condition>
         </conditions>
       </condition>
     </compare>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -783,23 +858,65 @@
     </GUI>
   </step>
   <step>
-    <name>Group by Product, Year and PackageSize</name>
-    <type>GroupBy</type>
-    <description/>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>Transformation</name>
+        <type>transformation name</type>
+      </field>
+      <field>
+        <name>LastHostExecution</name>
+        <type>IP address</type>
+      </field>
+      <field>
+        <name>LastExecution</name>
+        <type>system date (variable)</type>
+      </field>
+      <field>
+        <name>log</name>
+        <type>previous result log text</type>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Group by Product, Year and PackageSize</name>
+    <type>GroupBy</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore/>
+    <field_ignore />
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname/>
+    <linenr_fieldname />
     <give_back_row>N</give_back_row>
     <group>
       <field>
@@ -817,17 +934,16 @@
         <aggregate>VolumeByPackage</aggregate>
         <subject>VolumeByUnitPack</subject>
         <type>SUM</type>
-        <valuefield/>
+        <valuefield />
       </field>
       <field>
         <aggregate>CostByPackage</aggregate>
         <subject>Cost</subject>
         <type>SUM</type>
-        <valuefield/>
+        <valuefield />
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -843,33 +959,33 @@
   <step>
     <name>Input Production History</name>
     <type>ExcelInput</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <header>Y</header>
     <noempty>Y</noempty>
     <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
+    <filefield />
+    <sheetfield />
+    <sheetrownumfield />
+    <rownumfield />
+    <sheetfield />
+    <filefield />
     <limit>0</limit>
-    <encoding/>
+    <encoding />
     <add_to_result_filenames>Y</add_to_result_filenames>
     <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
+    <accept_field />
+    <accept_stepname />
     <file>
-      <name>C:\Users\Chaitra C Mouli\Downloads\dw_pentaho-master\OLTPData\ProductionSystem\ProductionHistory.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
+      <name>/Users/danielgil/Projects/ISYS90086/dw_pentaho/OLTPData/ProductionSystem/ProductionHistory.xlsx</name>
+      <filemask />
+      <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
@@ -881,10 +997,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
       </field>
       <field>
         <name>ProdCode</name>
@@ -894,9 +1010,9 @@
         <trim_type>none</trim_type>
         <repeat>N</repeat>
         <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
+        <currency />
+        <decimal />
+        <group />
       </field>
       <field>
         <name>ProdYear</name>
@@ -906,9 +1022,9 @@
         <trim_type>none</trim_type>
         <repeat>N</repeat>
         <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
+        <currency />
+        <decimal />
+        <group />
       </field>
       <field>
         <name>Volume</name>
@@ -917,10 +1033,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
       </field>
       <field>
         <name>Cost</name>
@@ -929,10 +1045,10 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
         <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
       </field>
     </fields>
     <sheets>
@@ -945,24 +1061,22 @@
     <strict_types>N</strict_types>
     <error_ignored>N</error_ignored>
     <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
+    <bad_line_files_destination_directory />
     <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
+    <error_line_files_destination_directory />
     <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
+    <line_number_files_destination_directory />
     <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
+    <shortFileFieldName />
+    <pathFieldName />
+    <hiddenFieldName />
+    <lastModificationTimeFieldName />
+    <uriNameFieldName />
+    <rootUriNameFieldName />
+    <extensionFieldName />
+    <sizeFieldName />
     <spreadsheet_type>POI</spreadsheet_type>
-    <password>Encrypted </password>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -976,15 +1090,129 @@
     </GUI>
   </step>
   <step>
-    <name>Remove ProductionID</name>
-    <type>SelectValues</type>
-    <description/>
+    <name>Insert / Update Metadata</name>
+    <type>InsertUpdate</type>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
+    </partitioning>
+    <connection>meta</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema />
+      <table>MetaOperations</table>
+      <key>
+        <name>Transformation</name>
+        <field>Transformation</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <key>
+        <name>Fieldname</name>
+        <field>Fieldname</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>Fieldname</name>
+        <rename>Fieldname</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>Comments</name>
+        <rename>Comments</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Type</name>
+        <rename>Type</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Length</name>
+        <rename>Length</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Precision</name>
+        <rename>Precision</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Origin</name>
+        <rename>Origin</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Transformation</name>
+        <rename>Transformation</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LastHostExecution</name>
+        <rename>LastHostExecution</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LastExecution</name>
+        <rename>LastExecution</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Metadata for Transformation</name>
+    <type>StepMetastructure</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <outputRowcount>N</outputRowcount>
+    <rowcountField />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Remove ProductionID</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
@@ -1010,8 +1238,7 @@
         <name>ProductionID</name>
       </remove>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1027,20 +1254,20 @@
   <step>
     <name>Sort rows by code and year</name>
     <type>SortRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory/>
+    <free_memory />
     <compress>N</compress>
-    <compress_variable/>
+    <compress_variable />
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1060,8 +1287,7 @@
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes/>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -1079,5 +1305,4 @@
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes/>
 </transformation>
