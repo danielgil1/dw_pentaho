@@ -10,12 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- 
 -- 
 
--- -----------------------------------------------------
--- Schema meta_overhill
---
--- 
--- 
--- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `meta_overhill` ;
 USE `meta_overhill` ;
 

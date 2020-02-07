@@ -5,13 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema dw_overhill
--- -----------------------------------------------------
-
--- -----------------------------------------------------
 -- Schema dw_overhill
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `dw_overhill` ;
@@ -61,6 +54,24 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimProducts` (
     REFERENCES `dw_overhill`.`DimHistCost` (`CostID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `dw_overhill`.`DimAgents`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dw_overhill`.`DimAgents` ;
+
+CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimAgents` (
+  `AgentID` INT NOT NULL AUTO_INCREMENT,
+  `AgentKey` VARCHAR(50) NULL,
+  `AgentFirstName` VARCHAR(50) NULL,
+  `CommissionRate` DECIMAL(2,2) NULL DEFAULT 0,
+  `AgentStartDate` DATE NULL,
+  `AgentFinishDate` DATE NULL,
+  `Version` INT NULL,
+  `AgentLastName` VARCHAR(50) NULL,
+  INDEX `idx_agent_name` (`AgentFirstName` ASC) VISIBLE,
+  PRIMARY KEY (`AgentID`));
 
 
 -- -----------------------------------------------------
@@ -122,24 +133,6 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimCustomers` (
 
 
 -- -----------------------------------------------------
--- Table `dw_overhill`.`DimAgents`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`DimAgents` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimAgents` (
-  `AgentID` INT NOT NULL AUTO_INCREMENT,
-  `AgentKey` VARCHAR(50) NULL,
-  `AgentFirstName` VARCHAR(50) NULL,
-  `CommissionRate` DECIMAL(2,2) NULL DEFAULT 0,
-  `AgentStartDate` DATE NULL,
-  `AgentFinishDate` DATE NULL,
-  `Version` INT NULL,
-  `AgentLastName` VARCHAR(50) NULL,
-  INDEX `idx_agent_name` (`AgentFirstName` ASC) VISIBLE,
-  PRIMARY KEY (`AgentID`));
-
-
--- -----------------------------------------------------
 -- Table `dw_overhill`.`DimDates`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `dw_overhill`.`DimDates` ;
@@ -184,61 +177,6 @@ CREATE TABLE IF NOT EXISTS `dw_overhill`.`DimMarkets` (
   CONSTRAINT `fk_DimMarkets_DimCustomers1`
     FOREIGN KEY (`MarketKey`)
     REFERENCES `dw_overhill`.`DimCustomers` (`Market`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `dw_overhill`.`QuarterlyGrainMarketSalesFact`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dw_overhill`.`QuarterlyGrainMarketSalesFact` ;
-
-CREATE TABLE IF NOT EXISTS `dw_overhill`.`QuarterlyGrainMarketSalesFact` (
-  `QuarterID` INT NOT NULL AUTO_INCREMENT,
-  `ProductID` INT NOT NULL,
-  `CustomerID` INT NOT NULL,
-  `AgentID` INT NOT NULL,
-  `TimeID` INT NOT NULL,
-  `MarketID` INT NOT NULL,
-  `TotalUnitsSold` INT NOT NULL,
-  `TotalSales` DECIMAL(7,2) NOT NULL,
-  `TotalCost` DECIMAL(7,2) NOT NULL,
-  `TotalCommission` DECIMAL(7,2) NOT NULL,
-  `TotalGrossMargin` DECIMAL(7,2) NOT NULL,
-  `TotalNetMargin` DECIMAL(7,2) NOT NULL,
-  `TotalCustomers` INT NOT NULL,
-  `TotalOrders` INT NOT NULL,
-  PRIMARY KEY (`QuarterID`),
-  INDEX `FK` (`ProductID` ASC, `CustomerID` ASC, `AgentID` ASC) VISIBLE,
-  INDEX `fk_quarterly_grain_market_fact_product_dim_idx` (`ProductID` ASC) VISIBLE,
-  INDEX `fk_quarterly_grain_market_fact_agent_dim_idx` (`AgentID` ASC) VISIBLE,
-  INDEX `idx_total_margin` (`TotalGrossMargin` ASC) VISIBLE,
-  INDEX `fk_quarterly_grain_marketFact_DimDates1_idx` (`TimeID` ASC) VISIBLE,
-  INDEX `fk_quarterly_grain_marketFact_DimMarkets1_idx` (`MarketID` ASC) VISIBLE,
-  INDEX `fk_quarterly_grain_marketfact_customer_dim1_idx` (`CustomerID` ASC) VISIBLE,
-  CONSTRAINT `fk_weekly_grain_sales_fact_product_dim1`
-    FOREIGN KEY (`ProductID`)
-    REFERENCES `dw_overhill`.`DimProducts` (`ProductID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_weekly_grain_sales_fact_customer_dim1`
-    FOREIGN KEY (`CustomerID`)
-    REFERENCES `dw_overhill`.`DimCustomers` (`CustomerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_WeeklyGrainSalesFact_DimAgents1`
-    FOREIGN KEY (`AgentID`)
-    REFERENCES `dw_overhill`.`DimAgents` (`AgentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_WeeklyGrainSalesFact_DimDates1`
-    FOREIGN KEY (`TimeID`)
-    REFERENCES `dw_overhill`.`DimDates` (`TimeID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_WeeklyGrainSalesFact_DimMarkets1`
-    FOREIGN KEY (`MarketID`)
-    REFERENCES `dw_overhill`.`DimMarkets` (`MarketID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
